@@ -7,6 +7,13 @@
     
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
     <style>
+        body{
+            padding-top: 80px;
+            
+        }
+        .main-content {
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+  }
         .navbar-brand img {
             height: 40px;
         }
@@ -30,6 +37,7 @@
     <main class="container mt-5">
     <?= $this->renderSection('content') ?>
     </main>
+    <?= view('partials/footer') ?>
     <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 </html>

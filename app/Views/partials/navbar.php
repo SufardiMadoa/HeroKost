@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container">
+<link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
+<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm z-9999">
+  <div class="container ">
     <a class="navbar-brand" href="#">
-      <img src="<?= base_url('images/logo.png') ?>" alt="HIRDKOST Logo" />
+      <img style="width:143px;" src="<?= base_url('images/logo.png') ?>" alt="HIRDKOST Logo" />
     </a>
     <button
       class="navbar-toggler"
@@ -96,3 +97,4 @@
     </div>
   </div>
 </nav>
+<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
