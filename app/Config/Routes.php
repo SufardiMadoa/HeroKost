@@ -2,7 +2,7 @@
 
 use CodeIgniter\Router\RouteCollection;
 
-/**
- * @var RouteCollection $routes
- */
+/** @var RouteCollection $routes */
 $routes->get('/', 'Home::index');
+$routes->get('/login', 'AuthController::login');
+$routes->get('/signup', 'AuthController::register');
