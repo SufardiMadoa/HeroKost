@@ -13,6 +13,7 @@ class CreateKosts extends Migration
             'id_user'        => ['type' => 'INT', 'unsigned' => true],
             'nama_kost'      => ['type' => 'VARCHAR', 'constraint' => 255],
             'alamat_kost'    => ['type' => 'TEXT'],
+            'kontak'         => ['type' => 'VARCHAR', 'constraint' => 20],
             'harga_kost'     => ['type' => 'DECIMAL', 'constraint' => '10,2'],
             'deskripsi_kost' => ['type' => 'TEXT', 'null' => true],
             'created_at'     => ['type' => 'TIMESTAMP', 'null' => true],

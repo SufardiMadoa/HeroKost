@@ -13,7 +13,6 @@ class CreateUsers extends Migration
             'nama_user'       => ['type' => 'VARCHAR', 'constraint' => 255],
             'email_user'      => ['type' => 'VARCHAR', 'constraint' => 255, 'unique' => true],
             'kata_sandi_user' => ['type' => 'VARCHAR', 'constraint' => 255],
-            'no_telepon_user' => ['type' => 'VARCHAR', 'constraint' => 20],
             'role'            => ['type' => 'ENUM', 'constraint' => ['pengguna', 'pemilik', 'admin']],
             'created_at'      => ['type' => 'TIMESTAMP', 'null' => true],
             'updated_at'      => ['type' => 'TIMESTAMP', 'null' => true],
