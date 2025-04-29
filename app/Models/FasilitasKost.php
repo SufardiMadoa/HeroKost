@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class FasilitasKost extends Model
 {
-    protected $table            = 'fasilitaskost';
+    protected $table            = 'fasilitas_kost';
     protected $primaryKey       = 'id_fasilitas_kost';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

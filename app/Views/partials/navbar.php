@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
-<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm z-9999">
+<nav style="z-index: auto; z-index: 200;" class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm ">
   <div class="container ">
     <a class="navbar-brand" href="#">
       <img style="width:143px;" src="<?= base_url('images/logo.png') ?>" alt="HIRDKOST Logo" />
