@@ -22,10 +22,10 @@
           <a class="nav-link" href="#">Beranda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tentang</a>
+          <a class="nav-link" href="tentang">Tentang</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Rekomendasi</a>
+          <a class="nav-link" href="rekomendasi">Rekomendasi</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Testimoni</a>
