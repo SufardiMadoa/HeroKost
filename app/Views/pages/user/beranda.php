@@ -62,7 +62,7 @@
     </a>
   </div>
 </section>
-<div class="container py-4 d-flex gap-5">
+<div class="container py-4 d-flex gap-5" id="tentang">
     <div>
         <img style="width: 629px; height:464px; border-radius:36px;" src="<?= base_url('image/beranda.jpg') ?>" alt="" srcset="">
     </div>
@@ -102,48 +102,50 @@
     <button class="btn btn-dark rounded-pill">Filter</button>
   </div>
 
-  <div class="container mt-4">
-    <h1><?= $title; ?></h1>
-    
-    <div class="row">
-        <?php if (empty($kosts)): ?>
+  <?php if (empty($kosts)): ?>
             <div class="col-md-12">
                 <div class="alert alert-info">
                     Belum ada data kost tersedia.
                 </div>
             </div>
-        <?php else: ?>
-            <?php foreach ($kosts as $kost): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <?php if (!empty($kost['gambar_utama'])): ?>
-                            <img src="<?= base_url('uploads/' . $kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
-                        <?php else: ?>
-                            <div class="bg-light text-center py-5">
-                                <i class="fa fa-home fa-3x text-muted"></i>
-                                <p class="text-muted">Tidak ada gambar</p>
-                            </div>
-                        <?php endif; ?>
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $kost['nama_kost']; ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><?= $kost['alamat_kost']; ?></h6>
-                            <p class="card-text fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</p>
-                            <p class="card-text"><?= substr($kost['deskripsi_kost'], 0, 100); ?>...</p>
-                            <?php if ($kost['jumlah_fasilitas'] > 0): ?>
-                                <p class="card-text"><small class="text-muted"><i class="fa fa-check-circle"></i> <?= $kost['jumlah_fasilitas']; ?> fasilitas tersedia</small></p>
-                            <?php endif; ?>
-                            <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-primary w-100">Lihat Detail</a>
-                        </div>
-                    </div>
+  <?php else: ?>
+    <div class="row g-4">
+
+    <?php foreach ($kosts as $kost): ?>
+      
+      <div class="col-md-4 mb-4">
+        <div class="card ">
+            <?php if (!empty($kost['gambar_utama'])): ?>
+                <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
+            <?php else: ?>
+                <div class="bg-light text-center py-5">
+                    <i class="fa fa-home fa-3x text-muted"></i>
+                    <p class="text-muted">Tidak ada gambar</p>
                 </div>
-            <?php endforeach; ?>
+            <?php endif; ?>
+            <div class="card-body">
+                <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
+                
+                <!-- Daftar fasilitas (gunakan deskripsi atau array jika ada) -->
+                <ul>
+                  <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
+                    <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
+                  <?php endforeach; ?>
+                </ul>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>
+                    <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-detail">Detail Kost</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+    </div>
+
         <?php endif; ?>
-    </div>
-    
-    <div class="text-center mt-4">
-        <a href="/kost/list" class="btn btn-success">Lihat Semua Kost</a>
-    </div>
-</div>
+
+  
 </div>
 
 <div class="container py-5">

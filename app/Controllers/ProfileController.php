@@ -8,9 +8,7 @@ class ProfileController extends BaseController
 {
   public function viewProfile()
   {
-    $profileModel    = new UserDetails();
-    $data['profile'] = $profileModel->where('id_user', session()->get('id_user'))->first();
-    return view('profile/view', $data);
+    return view('pages/user/profile');
   }
 
   public function editProfile()

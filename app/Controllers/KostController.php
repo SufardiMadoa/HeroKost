@@ -20,12 +20,25 @@ class KostController extends ResourceController
     $this->fasilitasKostModel = new FasilitasKost();
   }
 
+  private function getGambarUtama($id_kost)
+  {
+    $gambarModel = new \App\Models\GambarKost();  // pastikan namespace-nya benar
+    return $gambarModel->where('id_kost', $id_kost)->orderBy('id_gambar', 'ASC')->first();
+  }
+
   // Display list of all kosts (READ)
   public function index()
   {
+    $kosts           = $this->kostModel->findAll();
+    $kostsWithGambar = [];
+
+    foreach ($kosts as $kost) {
+      $kost['gambar_utama'] = $this->getGambarUtama($kost['id_kost']);
+      $kostsWithGambar[]    = $kost;
+    }
     $data = [
       'title' => 'Kelola Daftar Kost',
-      'kosts' => $this->kostModel->findAll()
+      'kosts' => $kostsWithGambar
     ];
 
     return view('pages/admin/kost/index', $data);
@@ -37,8 +50,8 @@ class KostController extends ResourceController
 
     // Ambil gambar utama untuk setiap kost
     foreach ($kosts as &$kost) {
-      $kost['gambar_utama']     = $this->kostModel->getGambarUtama($kost['id_kost']);
-      $kost['jumlah_fasilitas'] = $this->kostModel->countFasilitas($kost['id_kost']);
+      $kost['gambar_utama'] = $this->kostModel->getGambarUtama($kost['id_kost']);
+      $kost['fasilitas']    = $this->kostModel->getFasilitas($kost['id_kost']);
     }
 
     $data = [
@@ -57,8 +70,8 @@ class KostController extends ResourceController
 
     // Ambil gambar utama dan fasilitas untuk setiap kost
     foreach ($kosts as &$kost) {
-      $kost['gambar_utama']     = $this->kostModel->getGambarUtama($kost['id_kost']);
-      $kost['jumlah_fasilitas'] = $this->kostModel->countFasilitas($kost['id_kost']);
+      $kost['gambar_utama'] = $this->kostModel->getGambarUtama($kost['id_kost']);
+      $kost['fasilitas']    = $this->kostModel->getFasilitas($kost['id_kost']);
     }
 
     $data = [
@@ -68,7 +81,7 @@ class KostController extends ResourceController
       'currentPage' => $currentPage
     ];
 
-    return view('pages/user/rekomendasi', $data);
+    return view('/partials/navbar') . view('pages/user/rekomendasi', $data) . view('partials/footer');
   }
 
   /**
@@ -96,7 +109,7 @@ class KostController extends ResourceController
       'fasilitasKost' => $fasilitasKost
     ];
 
-    return view('pages/user/detail', $data);
+    return view('/partials/navbar') . view('pages/user/detailKost', $data) . view('partials/footer');
   }
 
   /**
@@ -180,6 +193,7 @@ class KostController extends ResourceController
       'alamat_kost'    => 'required',
       'harga_kost'     => 'required|numeric',
       'deskripsi_kost' => 'required',
+      'kontak'         => 'required',
       'jenis'          => 'required',
       'foto_kost'      => 'uploaded[foto_kost.0]|max_size[foto_kost.0,2048]|mime_in[foto_kost.0,image/jpg,image/jpeg,image/png]',
       'fasilitas'      => 'required'
@@ -195,6 +209,7 @@ class KostController extends ResourceController
       'nama_kost'      => $this->request->getPost('nama_kost'),
       'alamat_kost'    => $this->request->getPost('alamat_kost'),
       'harga_kost'     => $this->request->getPost('harga_kost'),
+      'kontak'         => $this->request->getPost('kontak'),
       'jenis'          => $this->request->getPost('jenis'),
       'deskripsi_kost' => $this->request->getPost('deskripsi_kost'),
       'created_at'     => date('Y-m-d H:i:s'),
@@ -230,39 +245,52 @@ class KostController extends ResourceController
     }
 
     // Handle multiple file upload - improved checking
-    $files = $this->request->getFileMultiple('foto_kost');
-    log_message('debug', 'Files found: ' . (is_array($files) ? count($files) : 'none'));
+    $files = $this->request->getFiles();
+    log_message('debug', 'Files structure: ' . print_r($files, true));
 
-    if (is_array($files) && count($files) > 0) {
-      $gambarKostModel = new \App\Models\GambarKost();
+    if (isset($files['foto_kost'])) {
+      $fileMultiple = $files['foto_kost'];
 
-      foreach ($files as $index => $foto) {
-        if ($foto->isValid() && !$foto->hasMoved()) {
-          try {
-            $newName = $foto->getRandomName();
-            $foto->move(ROOTPATH . 'public/uploads/kost_fotos', $newName);
+      // Make sure we're working with an array of files
+      if (is_array($fileMultiple)) {
+        $gambarKostModel = new \App\Models\GambarKost();
 
-            $gambarData = [
-              'id_kost'     => $kostId,
-              'path_gambar' => 'uploads/kost_fotos/' . $newName,
-              'created_at'  => date('Y-m-d H:i:s'),
-              'updated_at'  => date('Y-m-d H:i:s')
-            ];
+        // Debug info
+        log_message('debug', 'Number of files found: ' . count($fileMultiple));
 
-            $gambarKostModel->insert($gambarData);
+        foreach ($fileMultiple as $index => $foto) {
+          // Verify this is a valid upload
+          if ($foto->isValid() && !$foto->hasMoved()) {
+            try {
+              $newName = $foto->getRandomName();
+              $foto->move(ROOTPATH . 'public/uploads/kost_fotos', $newName);
 
-            // DEBUG: Log each successful image upload
-            log_message('debug', 'Image uploaded: ' . $newName);
-          } catch (\Exception $e) {
-            // Log any errors during file upload
-            log_message('error', 'Error uploading file: ' . $e->getMessage());
+              $gambarData = [
+                'id_kost'     => $kostId,
+                'path_gambar' => 'uploads/kost_fotos/' . $newName,
+                'created_at'  => date('Y-m-d H:i:s'),
+                'updated_at'  => date('Y-m-d H:i:s')
+              ];
+
+              $result = $gambarKostModel->insert($gambarData);
+
+              // DEBUG: Log each successful image upload and DB insertion
+              log_message('debug', 'Image #' . $index . ' uploaded: ' . $newName);
+              log_message('debug', 'DB Insert result: ' . $result);
+            } catch (\Exception $e) {
+              // Log any errors during file upload
+              log_message('error', 'Error uploading file #' . $index . ': ' . $e->getMessage());
+            }
+          } else {
+            log_message('error', 'File at index ' . $index . ' is not valid or has moved. Is valid: '
+              . ($foto->isValid() ? 'Yes' : 'No') . ', Has moved: ' . ($foto->hasMoved() ? 'Yes' : 'No'));
           }
-        } else {
-          log_message('error', 'File at index ' . $index . ' is not valid or has moved');
         }
+      } else {
+        log_message('error', 'foto_kost is not an array of files');
       }
     } else {
-      log_message('error', 'No files uploaded or files are not in expected format');
+      log_message('error', 'No files found in the request with name foto_kost');
     }
 
     // Set flash message and redirect

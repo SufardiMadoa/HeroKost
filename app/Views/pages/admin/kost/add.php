@@ -39,6 +39,10 @@
                         <label for="nama_kost" class="form-label">Nama Kost</label>
                         <input type="text" class="form-control" id="nama_kost" name="nama_kost" value="<?= old('nama_kost'); ?>" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="kontak" class="form-label">Kontak</label>
+                        <input type="text" class="form-control" id="kontak" name="kontak" value="<?= old('kontak'); ?>" required>
+                    </div>
                     
                     <div class="mb-3">
                         <label for="alamat_kost" class="form-label">Alamat Kost</label>

@@ -32,8 +32,8 @@
                                 <th>Foto</th>
                                 <th>Harga</th>
                                 <th>Jenis</th>
-                                <th>Status</th>
                                 <th>Kontak</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -45,17 +45,20 @@
                                     <td><?= $kost['deskripsi_kost']; ?></td>
                                     <td>
                                         <?php if (!empty($kost['foto_kost'])): ?>
-                                            <img src="<?= base_url('uploads/' . $kost['foto_kost']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
+                                            <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
                                         <?php else: ?>
                                             <span class="text-muted">No Image</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
                                     <td><?= $kost['jenis']; ?></td>
-
+                                    
+                                    <td><?= $kost['kontak']; ?></td>
                                     <td>
                                         <span class="badge bg-success">Ready</span>
                                     </td>
+
+                                    
                                     <td><?= $kost['alamat_kost']; ?></td>
                                     <td>
                                         <div class="btn-group">
