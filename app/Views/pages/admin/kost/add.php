@@ -45,6 +45,11 @@
                     </div>
                     
                     <div class="mb-3">
+                        <label for="lokasi" class="form-label">Kontak</label>
+                        <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= old('lokasi'); ?>" required>
+                    </div>
+                    
+                    <div class="mb-3">
                         <label for="alamat_kost" class="form-label">Alamat Kost</label>
                         <textarea class="form-control" id="alamat_kost" name="alamat_kost" rows="2" required><?= old('alamat_kost'); ?></textarea>
                     </div>

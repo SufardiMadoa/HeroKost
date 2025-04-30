@@ -1,9 +1,13 @@
 <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <nav style="z-index: auto; z-index: 200;" class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm ">
   <div class="container ">
     <a class="navbar-brand" href="#">
       <img style="width:143px;" src="<?= base_url('images/logo.png') ?>" alt="HIRDKOST Logo" />
     </a>
+    
+    <?php if (session()->get('role') != 'pemilik'): ?>
+    <!-- Tombol toggle menu hanya ditampilkan jika bukan role pemilik -->
     <button
       class="navbar-toggler"
       type="button"
@@ -31,8 +35,9 @@
           <a class="nav-link" href="#">Testimoni</a>
         </li>
       </ul>
+    <?php endif; ?>
 
-      <div class="d-flex">
+      <div class="<?= session()->get('role') != 'pemilik' ? 'd-flex' : 'ms-auto' ?>">
         <?php if (!session()->get('logged_in')): ?>
           <!-- Tombol untuk user yang belum login -->
           <a href="<?= site_url('login') ?>" class="btn me-2">Log in</a>
@@ -65,7 +70,7 @@
           ?>
           
           <div class="dropdown">
-            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" 
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow text-decoration-none" 
                href="#" 
                id="navbarDropdownMenuAvatar" 
                role="button" 
@@ -75,12 +80,16 @@
                    style="background-color: hsl(<?= $colorValue ?>, 70%, 50%); width: 35px; height: 35px; font-weight: bold;">
                 <?= $inisial ?>
               </div>
+              
             </a>
             <ul
               class="dropdown-menu dropdown-menu-end"
               aria-labelledby="navbarDropdownMenuAvatar"
             >
+              <?php if (session()->get('role') == 'pemilik'): ?>
               
+              <li><hr class="dropdown-divider"></li>
+              <?php endif; ?>
               <li>
                 <a class="dropdown-item" href="<?= site_url('logout') ?>">Logout</a>
               </li>
@@ -88,7 +97,9 @@
           </div>
         <?php endif; ?>
       </div>
+    <?php if (session()->get('role') != 'pemilik'): ?>
     </div>
+    <?php endif; ?>
   </div>
 </nav>
 <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>

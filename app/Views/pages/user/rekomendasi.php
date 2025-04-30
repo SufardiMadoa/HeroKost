@@ -89,31 +89,33 @@
   <?php foreach ($kosts as $kost): ?>
       
       <div class="col-md-4 mb-4">
-        <div class="card ">
+      <div class="card h-100">
             <?php if (!empty($kost['gambar_utama'])): ?>
-                <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
+              <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>">
             <?php else: ?>
-                <div class="bg-light text-center py-5">
-                    <i class="fa fa-home fa-3x text-muted"></i>
-                    <p class="text-muted">Tidak ada gambar</p>
-                </div>
+              <div class="bg-light text-center py-5">
+                <i class="fas fa-home fa-3x text-muted"></i>
+                <p class="text-muted">Tidak ada gambar</p>
+              </div>
             <?php endif; ?>
             <div class="card-body">
-                <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
-                
-                <!-- Daftar fasilitas (gunakan deskripsi atau array jika ada) -->
-                <ul>
-                  <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
-                    <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
-                  <?php endforeach; ?>
-                </ul>
+              <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
+              
+              <!-- Daftar fasilitas dengan icon -->
+              <ul>
+                <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
+                  <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
+                <?php endforeach; ?>
+              </ul>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>
-                    <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-detail">Detail Kost</a>
-                </div>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>
+                <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-detail">
+                  <i class="fas fa-arrow-right mr-1"></i> Detail
+                </a>
+              </div>
             </div>
-        </div>
+          </div>
       </div>
     <?php endforeach; ?>
     <?php endif; ?>

@@ -37,6 +37,10 @@
                         <label for="kontak" class="form-label">Kontak</label>
                         <input type="text" class="form-control" id="kontak" name="kontak" value="<?= old('kontak', $kost['kontak']); ?>" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="lokasi" class="form-label">Lokasi</label>
+                        <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= old('lokasi', $kost['lokasi']); ?>" required>
+                    </div>
 
 
                     <div class="mb-3">
