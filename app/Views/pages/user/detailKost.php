@@ -5,7 +5,10 @@
 <style>
    .info-card {
     background-color: #ffffff;
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
+    border:none;
+    shadow:none;
+    
    }
 
    .custom-carousel-controls {
@@ -132,7 +135,7 @@
             </div>
             
             <!-- Information Section -->
-            <div class="col-lg-5 d-flex flex-column">
+            <div class="col-lg-5 d-flex flex-column ">
                 <!-- Kost Information -->
                 <div class="mb-4">
                     <h4><?= $kost['nama_kost'] ?></h4>
@@ -199,58 +202,67 @@
 
 <!-- Additional Info Section -->
 <div class="container mb-5">
-    <div class="row g-4">
-        <!-- Kost Location Map (if you have maps integration) -->
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Lokasi Kost</h5>
-                    <p>Informasi Layanan
-Untuk mengetahui detail informasi kost, pelanggan dikenai biaya layanan (jasa) sebesar Rp. 30.000Informasi yang anda dapatkan nantinya meliputi :
-Nama Pemilik Kost
-Nomor Handphone Pemilik Kost
-Detail Alamat dan Share Lokasi Kost
-Jaminan refund atau ganti info kost lain jika kost yang dipilih sudah penuh</p>
-                </div>
-            </div>
+  <div class="row g-4 d-flex align-items-stretch">
+    <!-- Kolom Kiri: Dua card disusun vertikal -->
+    <div class="col-lg-8 d-flex flex-column justify-content-between">
+      <div class="card shadow-sm mb-3 flex-fill rounded-3">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Informasi Layanan</h5>
+          <p>
+            Untuk mengetahui detail informasi kost, pelanggan dikenai biaya layanan (jasa) sebesar Rp. 30.000<br>
+            Informasi yang anda dapatkan nantinya meliputi:
+            <ul>
+              <li>Nama Pemilik Kost</li>
+              <li>Nomor Handphone Pemilik Kost</li>
+              <li>Detail Alamat dan Share Lokasi Kost</li>
+              <li>Jaminan refund atau ganti info kost lain jika kost yang dipilih sudah penuh</li>
+            </ul>
+          </p>
         </div>
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Lokasi Kost</h5>
-                    <p>Informasi Layanan
-Untuk mengetahui detail informasi kost, pelanggan dikenai biaya layanan (jasa) sebesar Rp. 30.000Informasi yang anda dapatkan nantinya meliputi :
-Nama Pemilik Kost
-Nomor Handphone Pemilik Kost
-Detail Alamat dan Share Lokasi Kost
-Jaminan refund atau ganti info kost lain jika kost yang dipilih sudah penuh</p>
-                </div>
-            </div>
+      </div>
+
+      <div class="card shadow-sm flex-fill rounded-3">
+        <div class="card-body ">
+          <h5 class="card-title mb-3">Tata Cara Pembayaran</h5>
+          <ol>
+            <li>Pilih kost yang ingin anda pesan</li>
+            <li>Transfer biaya layanan ke BCA 3510431678 a.n. Veronica Cantika Arta Gumelar</li>
+            <li>Konfirmasi pembayaran melalui WhatsApp admin</li>
+            <li>Admin akan memberikan detail informasi kost</li>
+            <li>Jika kost penuh, admin akan menawarkan refund atau alternatif kost</li>
+          </ol>
         </div>
-        
-        <!-- Owner Information -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Informasi Pemilik</h5>
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                            <i class="fas fa-user text-white"></i>
-                        </div>
-                        <div>
-                            <h6 class="mb-0"><?= isset($kost['nama_pemilik']) ? $kost['nama_pemilik'] : 'Pemilik Kost' ?></h6>
-                            <small class="text-muted">Pemilik Kost</small>
-                        </div>
-                    </div>
-                    <?php $admin_phone = isset($kost['no_hp']) ? $kost['no_hp'] : '6281234567890'; ?>
-                    <a href="https://wa.me/<?= $admin_phone ?>" class="btn btn-success w-100">
-                        <i class="fab fa-whatsapp me-2"></i> Hubungi via WhatsApp
-                    </a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <!-- Kolom Kanan: Informasi Pemilik -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm h-100 rounded-3">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title mb-3">Preview Pemesanan Rekomendasi Kost</h5>
+            <div class="d-flex align-items-center mb-3">
+            <?php if (!empty($gambarUtama)): ?>
+    <img src="<?= base_url($gambarUtama['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
+<?php else: ?>
+    <p class="text-muted">Tidak ada gambar</p>
+<?php endif; ?>
+              </div>
+              <div>
+                </div>
+            </div>
+            <h6 class="mb-0"><?= isset($kost['nama_pemilik']) ? $kost['nama_pemilik'] : 'Pemilik Kost' ?></h6>
+            <small class="text-muted">Pemilik Kost</small>
+          <?php $admin_phone = isset($kost['no_hp']) ? $kost['no_hp'] : '6281234567890'; ?>
+          <a href="https://wa.me/<?= $admin_phone ?>" class="btn btn-success w-100 mt-3">
+            <i class="fab fa-whatsapp me-2"></i> Hubungi via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
