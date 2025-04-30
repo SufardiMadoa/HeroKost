@@ -76,124 +76,39 @@
  
 
   <div class="row g-4">
-    <!-- Card 1 -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="<?= base_url('image/beranda.jpg') ?>" class="card-img-top" alt="Kost 1">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Kost Putra Soekarno Hatta</h5>
-          <ul class="list-unstyled small mb-3">
-            <li>• Kamar Mandi Dalam</li>
-            <li>• Akses 24 Jam</li>
-            <li>• Full Fasilitas</li>
-            <li>• Parkiran mobil dan motor</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Rp. 850.000/bulan</span>
-            <a href="#" class="btn btn-detail">Detail Kost</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <?php foreach ($kosts as $kost): ?>
+      
+      <div class="col-md-4 mb-4">
+        <div class="card ">
+            <?php if (!empty($kost['gambar_utama'])): ?>
+                <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
+            <?php else: ?>
+                <div class="bg-light text-center py-5">
+                    <i class="fa fa-home fa-3x text-muted"></i>
+                    <p class="text-muted">Tidak ada gambar</p>
+                </div>
+            <?php endif; ?>
+            <div class="card-body">
+                <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
+                
+                <!-- Daftar fasilitas (gunakan deskripsi atau array jika ada) -->
+                <ul>
+                  <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
+                    <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
+                  <?php endforeach; ?>
+                </ul>
 
-    <!-- Card 2 -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="<?= base_url('image/beranda.jpg') ?>" class="card-img-top" alt="Kost 2">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Kost Putra Soekarno Hatta</h5>
-          <ul class="list-unstyled small mb-3">
-            <li>• Kamar Mandi Dalam</li>
-            <li>• Akses 24 Jam</li>
-            <li>• Full Fasilitas</li>
-            <li>• Parkiran mobil dan motor</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Rp. 850.000/bulan</span>
-            <a href="#" class="btn btn-detail">Detail Kost</a>
-          </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>
+                    <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-detail">Detail Kost</a>
+                </div>
+            </div>
         </div>
       </div>
-    </div>
-    <!-- Card 3 -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="<?= base_url('image/beranda.jpg') ?>" class="card-img-top" alt="Kost 3">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Kost Putra Soekarno Hatta</h5>
-          <ul class="list-unstyled small mb-3">
-            <li>• Kamar Mandi Dalam</li>
-            <li>• Akses 24 Jam</li>
-            <li>• Full Fasilitas</li>
-            <li>• Parkiran mobil dan motor</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Rp. 850.000/bulan</span>
-            <a href="#" class="btn btn-detail">Detail Kost</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <?php endforeach; ?>
 
 
-   <!-- Card 1 -->
-   <div class="col-md-4">
-      <div class="card h-100">
-        <img src="<?= base_url('image/beranda.jpg') ?>" class="card-img-top" alt="Kost 1">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Kost Putra Soekarno Hatta</h5>
-          <ul class="list-unstyled small mb-3">
-            <li>• Kamar Mandi Dalam</li>
-            <li>• Akses 24 Jam</li>
-            <li>• Full Fasilitas</li>
-            <li>• Parkiran mobil dan motor</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Rp. 850.000/bulan</span>
-            <a href="#" class="btn btn-detail">Detail Kost</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="<?= base_url('image/beranda.jpg') ?>" class="card-img-top" alt="Kost 2">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Kost Putra Soekarno Hatta</h5>
-          <ul class="list-unstyled small mb-3">
-            <li>• Kamar Mandi Dalam</li>
-            <li>• Akses 24 Jam</li>
-            <li>• Full Fasilitas</li>
-            <li>• Parkiran mobil dan motor</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Rp. 850.000/bulan</span>
-            <a href="#" class="btn btn-detail">Detail Kost</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Card 3 -->
-    <div class="col-md-4">
-      <div class="card h-100">
-        <img src="<?= base_url('image/beranda.jpg') ?>" class="card-img-top" alt="Kost 3">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Kost Putra Soekarno Hatta</h5>
-          <ul class="list-unstyled small mb-3">
-            <li>• Kamar Mandi Dalam</li>
-            <li>• Akses 24 Jam</li>
-            <li>• Full Fasilitas</li>
-            <li>• Parkiran mobil dan motor</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold">Rp. 850.000/bulan</span>
-            <a href="#" class="btn btn-detail">Detail Kost</a>
-          </div>
-        </div>
-      </div>
-    </div>
+   
 
   </div>
 </div>

@@ -9,7 +9,7 @@ class AdminController extends BaseController
 {
     public function dashboard()
     {
-        return view('admin/dashboard');
+        return view('pages/admin/dashboard');
     }
 
     public function manageUsers()

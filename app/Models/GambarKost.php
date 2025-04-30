@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class GambarKost extends Model
 {
-    protected $table            = 'gambarkost';
+    protected $table            = 'gambar_kost';
     protected $primaryKey       = 'id_gambar';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

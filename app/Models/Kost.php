@@ -14,7 +14,7 @@ class Kost extends Model
     protected $protectFields    = true;
 
     protected $allowedFields = [
-        'id_user', 'nama_kost', 'alamat_kost', 'harga_kost', 'deskripsi_kost', 'created_at', 'updated_at'
+        'id_user', 'nama_kost', 'alamat_kost', 'harga_kost', 'kontak', 'deskripsi_kost', 'created_at', 'updated_at'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -42,4 +42,43 @@ class Kost extends Model
     protected $afterFind              = [];
     protected $beforeDelete           = [];
     protected $afterDelete            = [];
+
+    public function getGambar($id_kost)
+    {
+        $gambarModel = new GambarKost();
+        return $gambarModel->where('id_kost', $id_kost)->findAll();
+    }
+
+    /**
+     * Mendapatkan gambar utama kost (gambar pertama)
+     */
+    public function getGambarUtama($id_kost)
+    {
+        $gambarModel = new GambarKost();
+        return $gambarModel->where('id_kost', $id_kost)->orderBy('id_gambar', 'ASC')->first();
+    }
+
+    /**
+     * Mendapatkan semua fasilitas terkait dengan kost
+     */
+    public function getFasilitas($id_kost)
+    {
+        $db = \Config\Database::connect();
+        return $db
+            ->table('fasilitas_kost')
+            ->select('fasilitas.id_fasilitas, fasilitas.nama_fasilitas')
+            ->join('fasilitas', 'fasilitas.id_fasilitas = fasilitas_kost.id_fasilitas')
+            ->where('fasilitas_kost.id_kost', $id_kost)
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Menghitung jumlah fasilitas yang dimiliki kost
+     */
+    public function countFasilitas($id_kost)
+    {
+        $fasilitasModel = new FasilitasKost();
+        return $fasilitasModel->where('id_kost', $id_kost)->countAllResults();
+    }
 }

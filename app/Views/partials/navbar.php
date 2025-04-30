@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
-<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm z-9999">
+<nav style="z-index: auto; z-index: 200;" class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm ">
   <div class="container ">
     <a class="navbar-brand" href="#">
       <img style="width:143px;" src="<?= base_url('images/logo.png') ?>" alt="HIRDKOST Logo" />
@@ -80,13 +80,7 @@
               class="dropdown-menu dropdown-menu-end"
               aria-labelledby="navbarDropdownMenuAvatar"
             >
-              <li>
-                <a class="dropdown-item" href="<?= site_url('profile') ?>">Profil Saya</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="<?= site_url('settings') ?>">Pengaturan</a>
-              </li>
-              <li><hr class="dropdown-divider"></li>
+              
               <li>
                 <a class="dropdown-item" href="<?= site_url('logout') ?>">Logout</a>
               </li>
