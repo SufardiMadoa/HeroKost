@@ -120,23 +120,28 @@ class KostController extends ResourceController
     $keyword = $this->request->getVar('keyword');
 
     if ($keyword) {
-      $result = $this
+      $kosts = $this
         ->kostModel
         ->like('nama_kost', $keyword)
         ->orLike('alamat_kost', $keyword)
         ->paginate(10, 'kost');
     } else {
-      $result = $this->kostModel->paginate(10, 'kost');
+      $kosts = $this->kostModel->paginate(10, 'kost');
+    }
+
+    foreach ($kosts as &$kost) {
+      $kost['gambar_utama'] = $this->kostModel->getGambarUtama($kost['id_kost']);
+      $kost['fasilitas']    = $this->kostModel->getFasilitas($kost['id_kost']);
     }
 
     $data = [
       'title'   => 'Hasil Pencarian',
-      'kosts'   => $result,
+      'kosts'   => $kosts,
       'pager'   => $this->kostModel->pager,
       'keyword' => $keyword
     ];
 
-    return view('kost/list', $data);
+    return view('pages/user/search', $data);
   }
 
   /**
@@ -144,30 +149,24 @@ class KostController extends ResourceController
    */
   public function filter()
   {
-    // Parameter harga dari filter lama
-    $minPrice = $this->request->getVar('min_price');
-    $maxPrice = $this->request->getVar('max_price');
-
-    // Parameter dari modal filter baru
+    $minPrice   = $this->request->getVar('min_price');
+    $maxPrice   = $this->request->getVar('max_price');
     $lokasi     = $this->request->getVar('lokasi');
     $jenis_kost = $this->request->getVar('jenis');
     $harga      = $this->request->getVar('harga_kost');
-    // $fasilitas  = $this->request->getVar('fasilitas');
+    // $fasilitas = $this->request->getVar('fasilitas');
 
     // Mulai query
     $query = $this->kostModel;
 
-    // Filter berdasarkan lokasi
     if ($lokasi) {
       $query = $query->where('lokasi', $lokasi);
     }
 
-    // Filter berdasarkan jenis kost
     if ($jenis_kost) {
       $query = $query->where('jenis_kost', $jenis_kost);
     }
 
-    // Filter berdasarkan harga dari filter lama (range harga)
     if ($minPrice) {
       $query = $query->where('harga_kost >=', $minPrice);
     }
@@ -176,7 +175,6 @@ class KostController extends ResourceController
       $query = $query->where('harga_kost <=', $maxPrice);
     }
 
-    // Filter berdasarkan harga dari modal baru (preset harga)
     if ($harga) {
       if ($harga == 500000) {
         $query = $query->where('harga_kost <', 500000);
@@ -189,24 +187,24 @@ class KostController extends ResourceController
       }
     }
 
-    // Filter berdasarkan fasilitas
-    // if ($fasilitas && is_array($fasilitas)) {
-    //   foreach ($fasilitas as $fasilitas) {
-    //     $query = $query->like('fasilitas', $fasilitas);
-    //   }
-    // }
+    $kosts = $query->paginate(10, 'kost');
 
-    // Menyiapkan data untuk view
+    // Tambahkan gambar dan fasilitas ke setiap kost
+    foreach ($kosts as &$kost) {
+      $kost['gambar_utama'] = $this->kostModel->getGambarUtama($kost['id_kost']);
+      $kost['fasilitas']    = $this->kostModel->getFasilitas($kost['id_kost']);
+    }
+
     $data = [
       'title'      => 'Filter Kost',
-      'kosts'      => $query->paginate(10, 'kost'),
+      'kosts'      => $kosts,
       'pager'      => $this->kostModel->pager,
       'min_price'  => $minPrice,
       'max_price'  => $maxPrice,
       'lokasi'     => $lokasi,
       'jenis_kost' => $jenis_kost,
       'harga'      => $harga,
-      // 'fasilitas'  => $fasilitas
+      // 'fasilitas' => $fasilitas
     ];
 
     return view('/partials/navbar') . view('pages/user/rekomendasi', $data) . view('partials/footer');

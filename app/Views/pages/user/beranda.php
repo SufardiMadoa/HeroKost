@@ -57,93 +57,22 @@
   text-align: center;
   border-color: transparent;
   border-radius: 50%;
-  pointer-events: none;
+  pointer-events: auto; /* Diubah dari none menjadi auto */
   display: inline-block;
   transition: background-color 0.2s ease-in-out;
+  z-index: 10;
 }
-.search__field::-webkit-input-placeholder {
-  position: relative;
-  top: 0;
-  left: 0;
-  transition-property: top, color;
-  transition-duration: .1s;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
+
+/* Tambahkan style untuk tombol error */
+.search__field.error {
+  animation: shake 0.5s;
+  border: 1px solid #dc3545 !important;
 }
-.search__field:-moz-placeholder {
-  position: relative;
-  top: 0;
-  left: 0;
-  transition-property: top, color;
-  transition-duration: .1s;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
-}
-.search__field::-moz-placeholder {
-  position: relative;
-  top: 0;
-  left: 0;
-  transition-property: top, color;
-  transition-duration: .1s;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
-}
-.search__field:-ms-input-placeholder {
-  position: relative;
-  top: 0;
-  left: 0;
-  transition-property: top, color;
-  transition-duration: .1s;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
-}
-.search__field::-webkit-input-placeholder[style*=hidden] {
-  color: #83b0c1;
-  font-size: .65em;
-  font-weight: normal;
-  top: -20px;
-  opacity: 1;
-  visibility: visible !important;
-}
-.search__field:-moz-placeholder[style*=hidden] {
-  color: #83b0c1;
-  font-size: .65em;
-  font-weight: normal;
-  top: -20px;
-  opacity: 1;
-  visibility: visible !important;
-}
-.search__field::-moz-placeholder[style*=hidden] {
-  color: #83b0c1;
-  font-size: .65em;
-  font-weight: normal;
-  top: -20px;
-  opacity: 1;
-  visibility: visible !important;
-}
-.search__field:-ms-input-placeholder[style*=hidden] {
-  color: #83b0c1;
-  font-size: .65em;
-  font-weight: normal;
-  top: -20px;
-  opacity: 1;
-  visibility: visible !important;
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
 
@@ -157,6 +86,60 @@
       border-radius: 1rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+    .card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    height: 100%;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  }
+  
+  .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    transition: all 0.5s ease;
+  }
+  
+  .card:hover .card-img-top {
+    transform: scale(1.05);
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .card-title {
+    color: #333;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 8px;
+    color: #666;
+  }
+  
+  .card ul li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+    font-weight: bold;
+  }
     .btn-detail {
       background-color: black;
       color: white;
@@ -207,12 +190,12 @@
 
 <div class="d-flex mt-12">
 
-  <form class="search">
-    <div class="search__wrapper">
-      <input type="text" name="" placeholder="Search for..." class="search__field">
-      <button type="submit" class="fa fa-search search__icon"></button>
-    </div>
-  </form>
+<form class="search" action="<?= base_url('kost/search') ?>" method="get">
+  <div class="search__wrapper">
+    <input type="text" name="keyword" placeholder="Search for..." class="search__field">
+    <button type="submit" class="fa fa-search search__icon"></button>
+  </div>
+</form>
 </div>
 
 </label>
@@ -252,85 +235,87 @@
         </div>
     </div>
     
-    <div class="container py-5">
+    <div class="container py-5" style="background-color: #f9f9f9;">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Rekomendasi Kost Terbaik</h2>
+    <p class="text-muted">Temukan hunian nyaman yang sesuai dengan kebutuhanmu</p>
+  </div>
+  
   <?php if (empty($kosts)): ?>
-            <div class="col-md-12">
-                <div class="alert alert-info">
-                    Belum ada data kost tersedia.
-                </div>
-            </div>
+    <div class="col-md-12">
+      <div class="alert alert-info">
+        Belum ada data kost tersedia.
+      </div>
+    </div>
   <?php else: ?>
     <div class="row g-4">
-
-    <?php foreach ($kosts as $kost): ?>
-      
-      <div class="col-md-4 mb-4">
-        <div class="card ">
+      <?php foreach ($kosts as $kost): ?>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
             <?php if (!empty($kost['gambar_utama'])): ?>
-                <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
+              <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>">
             <?php else: ?>
-                <div class="bg-light text-center py-5">
-                    <i class="fa fa-home fa-3x text-muted"></i>
-                    <p class="text-muted">Tidak ada gambar</p>
-                </div>
+              <div class="bg-light text-center py-5">
+                <i class="fas fa-home fa-3x text-muted"></i>
+                <p class="text-muted">Tidak ada gambar</p>
+              </div>
             <?php endif; ?>
             <div class="card-body">
-                <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
-                
-                <!-- Daftar fasilitas (gunakan deskripsi atau array jika ada) -->
-                <ul>
-                  <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
-                    <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
-                  <?php endforeach; ?>
-                </ul>
+              <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
+              
+              <!-- Daftar fasilitas dengan icon -->
+              <ul>
+                <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
+                  <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
+                <?php endforeach; ?>
+              </ul>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>
-                    <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-detail">Detail Kost</a>
-                </div>
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>
+                <a href="/kost/detail/<?= $kost['id_kost']; ?>" class="btn btn-detail">
+                  <i class="fas fa-arrow-right mr-1"></i> Detail
+                </a>
+              </div>
             </div>
+          </div>
         </div>
-      </div>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
     </div>
-
-        <?php endif; ?>
-
-  
+  <?php endif; ?>
 </div>
 
+<!-- Testimonials section with improved design -->
 <div class="container py-5">
   <div class="row align-items-center mb-5">
     <div class="col-md-5">
-      <h2 class="fw-bold mb-3">Apa Kata Mereka Tentang Hero Kost?</h2>
-      <p>Menemukan kost yang nyaman, strategis, dan sesuai budget di Malang bukan lagi hal yang sulit! Banyak pengguna telah merasakan kemudahan mencari hunian melalui Hero Kost. Dengan rekomendasi terpercaya dan ulasan jujur, mereka bisa menemukan tempat tinggal yang benar-benar worth it tanpa ribet. Yuk, simak pengalaman mereka yang sudah menggunakan Hero Kost!</p>
+      <h5 class="fw-bold mb-2" style="color: #FF5722;">TESTIMONI</h5>
+      <h2 class="fw-bold mb-4">Apa Kata Mereka Tentang Hero Kost?</h2>
+      <p class="text-muted">Menemukan kost yang nyaman, strategis, dan sesuai budget di Malang bukan lagi hal yang sulit! Banyak pengguna telah merasakan kemudahan mencari hunian melalui Hero Kost. Dengan rekomendasi terpercaya dan ulasan jujur, mereka bisa menemukan tempat tinggal yang benar-benar worth it tanpa ribet.</p>
       <div class="d-flex gap-2 mt-4">
         <button class="btn btn-outline-dark rounded-circle" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
+          <i class="fas fa-chevron-left"></i>
         </button>
         <button class="btn btn-outline-dark rounded-circle" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
+          <i class="fas fa-chevron-right"></i>
         </button>
       </div>
     </div>
 
     <div class="col-md-7">
-      <div id="testimonialCarousel" class="carousel slide " data-bs-ride="carousel">
+      <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-
           <!-- Slide 1 -->
           <div class="carousel-item active">
             <div class="testimonial-card testimonial-dark">
-                <span class="d-flex justify-content-between">
-
-                    <div class="testimonial-quote mb-2">“</div>
-                    <div class="testimonial-stars mb-3">
-                        ★★★★★
-                    </div>
-                </span>
-              <p>"Cari kost di Malang jadi super gampang berkat Hero Kost! Aku bisa nemuin tempat yang strategis, fasilitasnya lengkap, dan harganya sesuai budget. Gak perlu survei jauh-jauh, semua infonya udah jelas di sini!"</p>
+              <span class="d-flex justify-content-between">
+                <div class="testimonial-quote mb-2">"</div>
+                <div class="testimonial-stars mb-3">
+                  ★★★★★
+                </div>
+              </span>
+              <p class="mb-4">"Cari kost di Malang jadi super gampang berkat Hero Kost! Aku bisa nemuin tempat yang strategis, fasilitasnya lengkap, dan harganya sesuai budget. Gak perlu survei jauh-jauh, semua infonya udah jelas di sini!"</p>
               
-              <div class="d-flex align-items-center mt-3">
+              <div class="d-flex align-items-center mt-4">
                 <img src="https://via.placeholder.com/50" alt="Bagus Pratama" class="testimonial-img me-3">
                 <div>
                   <div class="fw-bold">Bagus Pratama</div>
@@ -343,16 +328,15 @@
           <!-- Slide 2 -->
           <div class="carousel-item">
             <div class="testimonial-card testimonial-light">
-            <span class="d-flex justify-content-between">
-
-<div class="testimonial-quote mb-2">“</div>
-<div class="testimonial-stars mb-3">
-    ★★★★★
-</div>
-</span>
-              <p>"Dulu susah banget cari kost, tapi sejak pakai Hero Kost dapet rekomendasi terbaik. Enak banget! Benar-benar membantu."</p>
+              <span class="d-flex justify-content-between">
+                <div class="testimonial-quote mb-2">"</div>
+                <div class="testimonial-stars mb-3">
+                  ★★★★★
+                </div>
+              </span>
+              <p class="mb-4">"Dulu susah banget cari kost, tapi sejak pakai Hero Kost dapet rekomendasi terbaik. Enak banget! Benar-benar membantu."</p>
               
-              <div class="d-flex align-items-center mt-3">
+              <div class="d-flex align-items-center mt-4">
                 <img src="https://via.placeholder.com/50" alt="Annisa Fitri" class="testimonial-img me-3">
                 <div>
                   <div class="fw-bold">Annisa Fitri</div>
@@ -361,19 +345,79 @@
               </div>
             </div>
           </div>
-
-          <!-- Tambah Slide Lagi di Sini kalau Mau -->
-
         </div>
       </div>
     </div>
   </div>
 </div>
 
+
 <script>
   document.querySelector('.stick').addEventListener('click',()=>{
   document.querySelector('.four').value = '';
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle search form
+    const searchForm = document.querySelector('.search');
+    const searchField = document.querySelector('.search__field');
+    const searchIcon = document.querySelector('.search__icon');
+
+    if (searchForm) {
+      // Prevent form from returning input field to small size when clicking search button
+      searchIcon.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default submit
+        
+        const keyword = searchField.value.trim();
+        
+        if (keyword !== '') {
+          // Manually submit form
+          searchForm.submit();
+        } else {
+          // If keyword is empty, add error class for animation
+          searchField.classList.add('error');
+          setTimeout(function() {
+            searchField.classList.remove('error');
+          }, 500);
+        }
+      });
+
+      // Handle form submit with enter
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submit
+        
+        const keyword = searchField.value.trim();
+        
+        if (keyword !== '') {
+          // Redirect to search page with keyword
+          window.location.href = '<?= base_url('kost/search') ?>?keyword=' + encodeURIComponent(keyword);
+        } else {
+          // If keyword is empty, add error class for animation
+          searchField.classList.add('error');
+          setTimeout(function() {
+            searchField.classList.remove('error');
+          }, 500);
+        }
+      });
+    }
+    
+    // Add animation classes on scroll
+    const animateOnScroll = function() {
+      const elements = document.querySelectorAll('.card, .testimonial-card');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if(elementPosition < screenPosition) {
+          element.classList.add('fade-in');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Run once on load
+  });
 </script>
     <!-- Bootstrap 5 JS Bundle with Popper -->
     

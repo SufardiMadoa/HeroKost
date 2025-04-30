@@ -13,6 +13,7 @@ $routes->get('/kost/search', 'KostController::search');
 $routes->get('/kost/filter', 'KostController::filter');
 $routes->get('/profile', 'ProfileController::viewProfile');
 $routes->get('/pemilik', 'Home::index', ['filter' => 'auth:pemilik']);
+$routes->get('/search', 'KostController::search');
 
 // Route untuk Login
 $routes->get('/login', 'AuthController::login');
