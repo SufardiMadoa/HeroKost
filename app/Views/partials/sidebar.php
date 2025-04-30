@@ -7,7 +7,7 @@
     
     <ul class="nav flex-column mt-4">
       <li class="nav-item">
-        <a href="#" class="nav-link active">
+        <a href="<?= site_url('admin/') ?>" class="nav-link active">
           <i class="bi bi-speedometer2"></i>
           Dashboard
         </a>

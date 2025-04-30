@@ -10,9 +10,9 @@
 
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
-    }
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
     
     .sidebar {
       position: fixed;

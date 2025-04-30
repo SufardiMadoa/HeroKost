@@ -12,7 +12,7 @@ $routes->get('/kost/detail/(:num)', 'KostController::detail/$1');
 $routes->get('/kost/search', 'KostController::search');
 $routes->get('/kost/filter', 'KostController::filter');
 $routes->get('/profile', 'ProfileController::viewProfile');
-// $routes->get('/detailKost', 'Home::detailKost');
+$routes->get('/pemilik', 'Home::index', ['filter' => 'auth:pemilik']);
 
 // Route untuk Login
 $routes->get('/login', 'AuthController::login');
@@ -22,6 +22,9 @@ $routes->post('/login', 'AuthController::authLogin');
 $routes->get('/signup', 'AuthController::register');
 
 $routes->post('/signup', 'AuthController::saveRegister');
+$routes->get('/signup/pemilik', 'AuthController::registerPemilik');
+
+$routes->post('/signup/pemilik', 'AuthController::saveRegisterPemilik');
 $routes->get('/admin', 'AdminController::dashboard');
 // Route untuk Logout
 $routes->get('/logout', 'AuthController::logout');

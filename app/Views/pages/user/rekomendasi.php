@@ -102,11 +102,7 @@
                 <h5 class="card-title fw-bold"><?= $kost['nama_kost']; ?></h5>
                 
                 <!-- Daftar fasilitas (gunakan deskripsi atau array jika ada) -->
-                <ul>
-                  <?php foreach ($kost['fasilitas'] as $fasilitas): ?>
-                    <li><?= esc($fasilitas['nama_fasilitas']) ?></li>
-                  <?php endforeach; ?>
-                </ul>
+              
 
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="fw-bold text-primary">Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?> / bulan</span>

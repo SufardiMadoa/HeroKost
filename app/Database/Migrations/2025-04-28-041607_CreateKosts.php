@@ -14,6 +14,7 @@ class CreateKosts extends Migration
             'nama_kost'      => ['type' => 'VARCHAR', 'constraint' => 255],
             'alamat_kost'    => ['type' => 'TEXT'],
             'kontak'         => ['type' => 'VARCHAR', 'constraint' => 20],
+            'lokasi'         => ['type' => 'VARCHAR', 'constraint' => 255],
             'jenis'          => [
                 'type' => "ENUM('Laki-laki','Perempuan','Campur')",
             ],
