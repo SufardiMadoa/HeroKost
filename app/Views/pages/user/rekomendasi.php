@@ -74,8 +74,20 @@
 
 <div class="container py-5">
  
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Temukan Kost Impian Kamu</h2>
+    <button class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#filterKostModal">
+      Filter
+    </button>
+  </div>
 
+  <?= $this->include('pages/Fitur/filter') ?>
   <div class="row g-4">
+<?php if (empty($kosts)): ?>
+    <p>Tidak ada kost ditemukan dengan filter tersebut.</p>
+<?php else: ?>
+
   <?php foreach ($kosts as $kost): ?>
       
       <div class="col-md-4 mb-4">
@@ -106,7 +118,7 @@
         </div>
       </div>
     <?php endforeach; ?>
-
+    <?php endif; ?>
 
    
 

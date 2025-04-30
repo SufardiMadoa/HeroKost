@@ -1,5 +1,6 @@
 
 <!-- CSSnya -->
+
 <style>
     .card-img-top {
       height: 200px;
@@ -96,12 +97,7 @@
         </div>
     </div>
     
-<div class="container py-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Temukan Kost Impian Kamu</h2>
-    <button class="btn btn-dark rounded-pill">Filter</button>
-  </div>
-
+    <div class="container py-5">
   <?php if (empty($kosts)): ?>
             <div class="col-md-12">
                 <div class="alert alert-info">
