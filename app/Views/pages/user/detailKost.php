@@ -176,6 +176,140 @@ h6 {
             </div>
         </div>
     </div>
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Kost</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border: 1px solid #dee2e6;
+        }
+        .preview-img {
+            border-radius: 10px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .submit-btn {
+            background-color: #1a2e44;
+            color: white;
+            border-radius: 25px;
+            padding: 8px 25px;
+        }
+        .upload-btn {
+            border-radius: 25px;
+            border: 1px solid #dee2e6;
+            padding: 8px 15px;
+            background-color: #fff;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+
+
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border: 1px solid #dee2e6;
+        }
+        .preview-img {
+            border-radius: 10px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .submit-btn {
+            background-color: #1a2e44;
+            color: white;
+            border-radius: 25px;
+            padding: 8px 25px;
+        }
+        .upload-btn {
+            border-radius: 25px;
+            border: 1px solid #dee2e6;
+            padding: 8px 15px;
+            background-color: #fff;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <!-- Left Column: Information Cards -->
+            <div class="col-lg-12 col-md-6 mb-4">
+                <!-- Service Information Card -->
+                <div class="card p-4 mb-4">
+                    <h5 class="fw-bold">Informasi Layanan</h5>
+                    <p>Untuk mengetahui detail informasi kost, pelanggan dikenai biaya layanan (jasa) sebesar Rp. 30.000</p>
+                    <p>Informasi yang anda dapatkan nantinya meliputi :</p>
+                    <ol>
+                        <li>Nama Pemilik Kost</li>
+                        <li>Nomor Handphone Pemilik Kost</li>
+                        <li>Detail Alamat dan Share Lokasi Kost</li>
+                    </ol>
+                    <p>Jaminan refund atau ganti info kost lain jika kost yang dipilih sudah penuh</p>
+                </div>
+                
+                <!-- Payment Method Card -->
+                <div class="card p-4">
+                    <h5 class="fw-bold">Tata Cara Pembayaran</h5>
+                    <ol>
+                        <li>Pilih kost yang Kamu minati</li>
+                        <li>Transfer Biaya Layanan ke BCA 3151013676 : Kresna Candra Arta Gumelar atau jenis pembayaran lainnya sesuai dengan informasi di bawah</li>
+                        <li>Pilih Lanjutkan Upload Bukti Transfer</li>
+                        <li>Anda akan diarahkan ke WhatsApp admin dan silakan upload bukti transfer di room chat WhatsApp admin</li>
+                    </ol>
+                    <p>Informasi lengkap mengenai kost yang anda inginkan akan kami kirimkan melalui Whatsapp</p>
+                </div>
+            </div>
+            <!-- Right Column: Preview and Form -->
+            <div class="col-lg-6 col-md-6">
+                <div class="card p-4">
+                    <h5 class="fw-bold mb-3">Preview Pemesanan Rekomendasi Kost</h5>
+                    
+                    <!-- Room Image -->
+                    <img src="/api/placeholder/400/320" alt="Preview Kost" class="preview-img mb-4">
+                    <!-- Kost Information -->
+                    <h5 class="fw-bold">Kost Putra Soekarno Hatta</h5>
+                    <p class="mb-1">CP: 0822********</p>
+                    <p class="mb-1">Jl. Bung*** L*** No.**</p>
+                    <p class="mb-4">Link Maps</p>
+                    
+                    <!-- Form Buttons -->
+                    <div class="btn-container">
+                        <button class="upload-btn">Unggah bukti pembayaran</button>
+                        <button class="submit-btn">Kirim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
 document.addEventListener('DOMContentLoaded', function () {
     const imageSliderElement = document.getElementById('imageSlider');
