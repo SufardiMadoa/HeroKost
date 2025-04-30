@@ -62,29 +62,21 @@
           <div class="mb-4">
             <h5 class="mb-3">Harga</h5>
             <div class="d-flex flex-wrap gap-2">
-              <?php
-              $prices = [
-                '<Rp. 500.000,-', '<Rp. 750.000,-', 
-                '<Rp. 1.000.000,-', '<Rp. 1.250.000,-'
-              ];
-              
-              $selected_harga = isset($_GET['harga']) ? $_GET['harga'] : '';
-              
-              foreach ($prices as $price) {
-                // Gunakan preg_replace untuk memastikan pembuatan ID yang aman
-                $priceId = preg_replace('/[^a-zA-Z0-9]/', '', strtolower(str_replace(['<', 'rp', '.', ' ', ',-'], '', $price)));
-                
-                echo '<div class="form-check">';
-                echo '<input class="btn-check" type="radio" name="harga" id="harga-'.$priceId.'" value="'.$price.'"';
-                if ($selected_harga == $price) echo ' checked';
-                echo '>';
-                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="harga-'.$priceId.'">'.$price.'</label>';
-                echo '</div>';
-                
-                // Debug
-                // echo "<!-- Debug: price=$price, priceId=$priceId -->";
-              }
-              ?>
+            <?php
+$prices = [
+    '<Rp. 500.000,-', '<Rp. 750.000,-', 
+    '<Rp. 1.000.000,-', '<Rp. 1.250.000,-'
+];
+
+foreach ($prices as $price) {
+    $priceId = str_replace(['<', '.', ' ', 'Rp', ',-'], '', $price);
+    $priceId = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $priceId));
+    echo '<div class="form-check">';
+    echo '<input class="btn-check" type="radio" name="harga" id="harga-'.$priceId.'" value="'.htmlspecialchars($price).'">';
+    echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="harga-'.$priceId.'">'.htmlspecialchars($price).'</label>';
+    echo '</div>';
+}
+?>
             </div>
           </div>
           

@@ -66,21 +66,19 @@
     <p class="lead mb-4">
       HeroKost Rekomendasi Kost Worth It Kota Malang
     </p>
-    <a href="#" class="btn btn-dark rounded-pill px-4 py-2">
-      <i class="bi bi-search me-2"></i> Temukan Sekarang
-    </a>
+    <div class="d-flex justify-content-center align-items-center mb-4">
+ 
+    <button class="btn px-5 btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#filterKostModal">
+      Filter
+    </button>
+  </div>
   </div>
 </section>
 
 <div class="container py-5">
  
 <div class="container py-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">Temukan Kost Impian Kamu</h2>
-    <button class="btn btn-dark rounded-pill" data-bs-toggle="modal" data-bs-target="#filterKostModal">
-      Filter
-    </button>
-  </div>
+  
 
   <?= $this->include('pages/Fitur/filter') ?>
   <div class="row g-4">

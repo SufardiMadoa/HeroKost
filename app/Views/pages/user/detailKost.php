@@ -205,15 +205,25 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Lokasi Kost</h5>
-                    <?php if (isset($kost['maps_embed']) && !empty($kost['maps_embed'])): ?>
-                        <div class="ratio ratio-16x9">
-                            <?= $kost['maps_embed'] ?>
-                        </div>
-                    <?php else: ?>
-                        <div class="bg-light p-5 text-center rounded">
-                            <p class="text-muted">Lokasi: <?= $kost['alamat_kost'] ?></p>
-                        </div>
-                    <?php endif; ?>
+                    <p>Informasi Layanan
+Untuk mengetahui detail informasi kost, pelanggan dikenai biaya layanan (jasa) sebesar Rp. 30.000Informasi yang anda dapatkan nantinya meliputi :
+Nama Pemilik Kost
+Nomor Handphone Pemilik Kost
+Detail Alamat dan Share Lokasi Kost
+Jaminan refund atau ganti info kost lain jika kost yang dipilih sudah penuh</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Lokasi Kost</h5>
+                    <p>Informasi Layanan
+Untuk mengetahui detail informasi kost, pelanggan dikenai biaya layanan (jasa) sebesar Rp. 30.000Informasi yang anda dapatkan nantinya meliputi :
+Nama Pemilik Kost
+Nomor Handphone Pemilik Kost
+Detail Alamat dan Share Lokasi Kost
+Jaminan refund atau ganti info kost lain jika kost yang dipilih sudah penuh</p>
                 </div>
             </div>
         </div>
