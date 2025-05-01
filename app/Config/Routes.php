@@ -27,26 +27,35 @@ $routes->post('/signup', 'AuthController::saveRegister');
 $routes->get('/signup/pemilik', 'AuthController::registerPemilik');
 
 $routes->post('/signup/pemilik', 'AuthController::saveRegisterPemilik');
-$routes->get('/admin', 'AdminController::dashboard');
 // Route untuk Logout
 $routes->get('/logout', 'AuthController::logout');
 
-$routes->get('/admin/kost', 'KostController::index');
-$routes->get('/admin/kost/new', 'KostController::new');
-$routes->post('/admin/kost', 'KostController::create');
-$routes->get('/admin/kost/edit/(:segment)', 'KostController::edit/$1');
-$routes->put('/admin/kost/(:segment)', 'KostController::update/$1');
-$routes->delete('/admin/kost/(:segment)', 'KostController::delete/$1');
+$routes->get('/admin', 'AdminController::dashboard', ['filter' => 'auth:admin']);
 
-$routes->get('/admin/fasilitas', 'FasilitasController::index');
-$routes->get('/admin/fasilitas/create', 'FasilitasController::create');
-$routes->post('/admin/fasilitas', 'FasilitasController::store');
-$routes->get('/admin/fasilitas/edit/(:num)', 'FasilitasController::edit/$1');
-$routes->post('/admin/fasilitas/update/(:num)', 'FasilitasController::update/$1');
-$routes->get('/admin/fasilitas/delete/(:num)', 'FasilitasController::delete/$1');
-$routes->post('admin/pembayaran/update_status', 'PembayaranController::updateStatus');
+$routes->get('/admin/kost', 'KostController::index', ['filter' => 'auth:admin']);
+$routes->get('/admin/kost/new', 'KostController::new', ['filter' => 'auth:admin']);
+$routes->post('/admin/kost', 'KostController::create', ['filter' => 'auth:admin']);
+$routes->get('/admin/kost/edit/(:segment)', 'KostController::edit/$1', ['filter' => 'auth:admin']);
+$routes->put('/admin/kost/(:segment)', 'KostController::update/$1', ['filter' => 'auth:admin']);
+$routes->delete('/admin/kost/(:segment)', 'KostController::delete/$1', ['filter' => 'auth:admin']);
 
-$routes->get('/admin/pelanggan', 'PembayaranController::pelanggan');
+$routes->get('/admin/fasilitas', 'FasilitasController::index', ['filter' => 'auth:admin']);
+$routes->get('/admin/fasilitas/create', 'FasilitasController::create', ['filter' => 'auth:admin']);
+$routes->post('/admin/fasilitas', 'FasilitasController::store', ['filter' => 'auth:admin']);
+$routes->get('/admin/fasilitas/edit/(:num)', 'FasilitasController::edit/$1', ['filter' => 'auth:admin']);
+$routes->post('/admin/fasilitas/update/(:num)', 'FasilitasController::update/$1', ['filter' => 'auth:admin']);
+$routes->get('/admin/fasilitas/delete/(:num)', 'FasilitasController::delete/$1', ['filter' => 'auth:admin']);
+
+$routes->post('admin/pembayaran/update_status', 'PembayaranController::updateStatus', ['filter' => 'auth:admin']);
+
+$routes->get('/admin/pelanggan', 'PembayaranController::pelanggan', ['filter' => 'auth:admin']);
+
+$routes->get('/admin/pemilik-kost', 'KostOwnerController::index');
+$routes->get('/admin/pemilik-kost/create', 'KostOwnerController::create');
+$routes->post('/admin/pemilik-kost/store', 'KostOwnerController::store');
+$routes->get('/admin/pemilik-kost/edit/(:num)', 'KostOwnerController::edit/$1');
+$routes->post('/admin/pemilik-kost/update/(:num)', 'KostOwnerController::update/$1');
+$routes->get('/admin/pemilik-kost/delete/(:num)', 'KostOwnerController::delete/$1');
 
 // soory lil yang ini gua kureng
 $routes->get('/kost/detail/(:num)', 'KostController::detail/$1');

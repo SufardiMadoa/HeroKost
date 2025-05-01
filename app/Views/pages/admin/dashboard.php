@@ -211,8 +211,8 @@
                         <h4>Kelola Daftar Kost</h4>
                         <div class="search-container">
                             <input type="text" class="form-control" placeholder="Cari ID Kost" style="padding-right: 50px;">
-                            <button class="btn btn-dark">
-                                <i class="fas fa-search"></i>
+                            <button class="btn btn-dark" style="height: 100%; width: 50pxP;">
+                                <i class="fas fa-search" style="color: #f5f5f5;"></i>
                             </button>
                         </div>
                     </div>

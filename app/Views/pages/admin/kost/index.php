@@ -2,15 +2,23 @@
 
 <?= $this->section('content'); ?>
 <style>
-     body {
-            background-color: #f5f5f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     
+    .table thead {
+        background-color: #343a40;
+        color: white;
+    }
+    
+    .table thead th {
+        border-color: #454d55;
+    }
 </style>
 <div class="row mb-4">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Kelola Daftar Kost</h5>
                 <div>
@@ -33,7 +41,7 @@
                     <table id="kostTable" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID_Kost</th>
+                                <th>No</th>
                                 <th>Nama Kost</th>
                                 <th>Detail Kost</th>
                                 <th>Foto</th>
@@ -46,9 +54,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($kosts as $kost): ?>
+                            <?php foreach ($kosts as $index => $kost): ?>
                                 <tr>
-                                    <td><?= $kost['id_kost']; ?></td>
+                                    <td><?= $index + 1; ?></td>
                                     <td><?= $kost['nama_kost']; ?></td>
                                     <td><?= $kost['deskripsi_kost']; ?></td>
                                     <td>
@@ -61,20 +69,16 @@
                                     <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
                                     <td><?= $kost['jenis']; ?></td>
                                     <td><?= $kost['lokasi']; ?></td>
-                                    
                                     <td><?= $kost['kontak']; ?></td>
                                     <td>
                                         <span class="badge bg-success">Ready</span>
                                     </td>
-
-                                    
-                                    <td><?= $kost['alamat_kost']; ?></td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <button type="button" class="btn-hapus" data-id="<?= $kost['id_kost']; ?>">
+                                            <button type="button" class="btn btn-sm btn-danger btn-hapus" data-id="<?= $kost['id_kost']; ?>">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </div>
@@ -115,7 +119,14 @@
 // Tunggu seluruh dokumen termuat
 document.addEventListener('DOMContentLoaded', function () {
     // Inisialisasi DataTable
-  
+    if ($.fn.DataTable) {
+        $('#kostTable').DataTable({
+            responsive: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            }
+        });
+    }
 
     // Setup delete confirmation
     const deleteButtons = document.querySelectorAll('.btn-hapus');
@@ -131,7 +142,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-  
-
 <?= $this->endSection(); ?>
-

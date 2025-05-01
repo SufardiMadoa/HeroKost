@@ -99,7 +99,7 @@ class AuthController extends BaseController
 
         // Redirect sesuai role
         if ($user['role'] === 'admin') {
-            return redirect()->to('/admin/dashboard');
+            return redirect()->to('/admin');
         } elseif ($user['role'] === 'pemilik') {
             return redirect()->to('/pemilik');
         } else {
