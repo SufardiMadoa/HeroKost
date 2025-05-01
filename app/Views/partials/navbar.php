@@ -23,16 +23,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">Beranda</a>
+          <a class="nav-link" href="<?= site_url('') ?>">Beranda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="tentang">Tentang</a>
+          <a class="nav-link" href="<?= site_url('tentang') ?>">Tentang</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="rekomendasi">Rekomendasi</a>
+          <a class="nav-link" href="<?= site_url(relativePath: 'rekomendasi') ?>">Rekomendasi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Testimoni</a>
+          <a class="nav-link" href="<?= site_url('testimoni') ?>">Testimoni</a>
         </li>
       </ul>
     <?php endif; ?>

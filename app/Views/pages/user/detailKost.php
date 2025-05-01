@@ -272,29 +272,48 @@
 
     <!-- Kolom Kanan: Informasi Pemilik -->
     <div class="col-lg-4">
-      <div class="card shadow-sm h-100 rounded-3">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <div>
-            <h5 class="card-title my-3">Preview Pemesanan Rekomendasi Kost</h5>
-            <div class="d-flex align-items-center ">
-            <?php if (!empty($gambarUtama)): ?>
-    <img src="<?= base_url($gambarUtama['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
-<?php else: ?>
-    <p class="text-muted">Tidak ada gambar</p>
-<?php endif; ?>
-</div>
-<h4 class="fw-bold text-center mt-3"><?= $kost['nama_kost']; ?></h4>
-<p><strong>CP:</strong> <?= substr($kost['kontak'], 0, 4) . str_repeat('*', 6); ?></p>
-<p><strong>Alamat:</strong> <?= preg_replace('/(?<=\bJl\.\s\w{3})\w+/', '***', $kost['alamat_kost']); ?></p>
+  <div class="card shadow-sm h-100 rounded-3">
+    <div class="card-body d-flex flex-column justify-content-between">
+      <div>
+        <h5 class="card-title my-3">Preview Pemesanan Rekomendasi Kost</h5>
+        <div class="d-flex align-items-center ">
+          <?php if (!empty($gambarUtama)): ?>
+            <img src="<?= base_url($gambarUtama['path_gambar']); ?>" class="card-img-top" alt="<?= $kost['nama_kost']; ?>" style="height: 200px; object-fit: cover;">
+          <?php else: ?>
+            <p class="text-muted">Tidak ada gambar</p>
+          <?php endif; ?>
+        </div>
+        <h4 class="fw-bold text-center mt-3"><?= $kost['nama_kost']; ?></h4>
+        <p><strong>CP:</strong> <?= substr($kost['kontak'], 0, 4) . str_repeat('*', 6); ?></p>
+        <p><strong>Alamat:</strong> <?= preg_replace('/(?<=\bJl\.\s\w{3})\w+/', '***', $kost['alamat_kost']); ?></p>
+        <p><strong>Harga:</strong> Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></p>
 
-<h6 class="mb-0"><?= isset($kost['nama_pemilik']) ? $kost['nama_pemilik'] : 'Pemilik Kost' ?></h6>
-<small class="text-muted">Pemilik Kost</small>
-<form method="POST" action="<?= base_url('/bayar') ?>" enctype="multipart/form-data">
-  <input type="hidden" name="id_kost" value="<?= $id_kost ?>">
-  <input type="number" name="jumlah_bayar" required>
-  <input type="file" name="bukti_pembayaran" required>
-  <button type="submit">Kirim</button>
-</form>     <div>
+        <h6 class="mb-0"><?= isset($kost['nama_pemilik']) ? $kost['nama_pemilik'] : 'Pemilik Kost' ?></h6>
+        <small class="text-muted">Pemilik Kost</small>
+        
+        <form method="POST" action="<?= base_url('/pembayaran') ?>" enctype="multipart/form-data">
+          <!-- Hidden fields required by the controller -->
+          <input type="hidden" name="id_kost" value="<?= $kost['id_kost']; ?>">
+          <input type="hidden" name="jumlah_bayar" value="<?= $kost['harga_kost']; ?>">
+          <input type="hidden" name="id_user" value="<?= session()->get('id_user'); ?>">
+          
+          <div class="mb-3 mt-3">
+            <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
+            <div class="custom-input-group">
+              <input type="file" class="custom-input form-control" id="bukti_pembayaran" name="bukti_pembayaran" onchange="updateFileName()" required>
+            </div>
+            <small id="fileNamePreview" class="form-text text-muted mt-1">Belum ada file dipilih</small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary w-100">Kirim Bukti Pembayaran</button>
+        </form>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+              <div>
                 </div>
             </div>
         </div>
@@ -306,6 +325,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
+          function updateFileName() {
+            const input = document.getElementById('bukti_pembayaran');
+            const preview = document.getElementById('fileNamePreview');
+            preview.textContent = input.files[0] ? input.files[0].name : 'Belum ada file dipilih';
+          }
 document.addEventListener('DOMContentLoaded', function () {
     const imageSliderElement = document.getElementById('imageSlider');
     const customIndicatorsContainer = document.querySelector('.custom-indicators');
@@ -348,13 +372,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-  function updateFileName() {
-    const input = document.getElementById('fileInput');
-    const preview = document.getElementById('fileNamePreview');
-    if (input.files.length > 0) {
-      preview.textContent = input.files[0].name;
-    } else {
-      preview.textContent = "Belum ada file dipilih";
-    }
-  }
+ 
 </script>

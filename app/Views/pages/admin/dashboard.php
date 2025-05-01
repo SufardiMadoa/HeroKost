@@ -163,8 +163,8 @@
             <div class="col-md-3">
                 <div class="card-stat">
                     <div>
-                        <h4>468+</h4>
-                        <small class="text-muted">Total Daftar Kost</small>
+                    <h4><?= $totalKost ?>+</h4>
+                    <small class="text-muted">Total Daftar Kost</small>
                     </div>
                     <div class="stats-icon">
                         <i class="fas fa-home"></i>
@@ -176,8 +176,8 @@
             <div class="col-md-3">
                 <div class="card-stat">
                     <div>
-                        <h4>123+</h4>
-                        <small class="text-muted">Total Customer</small>
+                    <h4><?= $totalUser ?>+</h4>
+                    <small class="text-muted">Total Customer</small>
                     </div>
                     <div class="stats-icon">
                         <i class="fas fa-users"></i>
@@ -200,7 +200,7 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 
 
         <!-- Main Content -->
@@ -217,38 +217,62 @@
                         </div>
                     </div>
                     
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
+                    <div class="card-body">
+                <div class="table-responsive">
+                    <table id="kostTable" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID_Kost</th>
+                                <th>Nama Kost</th>
+                                <th>Foto</th>
+                                <th>Harga</th>
+                                <th>Jenis</th>
+                                <th>Lokasi</th>
+                                <th>Kontak</th>
+                                <th>Status</th>
+                                <th>Alamat</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($kosts as $kost): ?>
                                 <tr>
-                                    <th>ID_Kost</th>
-                                    <th>Nama Kost</th>
-                                    <th>Detail Kost</th>
-                                    <th>Foto</th>
-                                    <th>Harga</th>
-                                    <th>Status</th>
-                                    <th>Kontak</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php for ($i = 1; $i <= 10; $i++): ?>
-                                <tr>
-                                    <td>PA-001</td>
-                                    <td>Kost Putra Soekarno</td>
-                                    <td>Fasilitas: Kamar Mandi Dalam</td>
-                                    <td><img src="https://via.placeholder.com/50" alt="Foto Kost" class="rounded"></td>
-                                    <td>Rp. 850.000</td>
-                                    <td><span class="badge bg-success">Ready</span></td>
-                                    <td>cp:081211*****</td>
+                                    <td><?= $kost['id_kost']; ?></td>
+                                    <td><?= $kost['nama_kost']; ?></td>
                                     <td>
-                                        <button class="btn btn-sm btn-danger action-btn">Hapus</button>
+                                        <?php if (!empty($kost['foto_kost'])): ?>
+                                            <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
+                                        <?php else: ?>
+                                            <span class="text-muted">No Image</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
+                                    <td><?= $kost['jenis']; ?></td>
+                                    <td><?= $kost['lokasi']; ?></td>
+                                    
+                                    <td><?= $kost['kontak']; ?></td>
+                                    <td>
+                                        <span class="badge bg-success">Ready</span>
+                                    </td>
+
+                                    
+                                    <td><?= $kost['alamat_kost']; ?></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button type="button" class="btn-hapus" data-id="<?= $kost['id_kost']; ?>">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
-                                <?php endfor; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
                     
                     <nav>
                         <ul class="pagination justify-content-center">

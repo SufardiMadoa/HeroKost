@@ -81,4 +81,13 @@ class Kost extends Model
         $fasilitasModel = new FasilitasKost();
         return $fasilitasModel->where('id_kost', $id_kost)->countAllResults();
     }
+
+    public function getKostWithOwner($id)
+    {
+        return $this
+            ->select('kost.*, users.nama_user as nama_pemilik')
+            ->join('users', 'users.id_user = kost.id_user')
+            ->where('kost.id_kost', $id)
+            ->first();
+    }
 }

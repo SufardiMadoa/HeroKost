@@ -14,6 +14,7 @@ $routes->get('/kost/filter', 'KostController::filter');
 $routes->get('/profile', 'ProfileController::viewProfile');
 $routes->get('/pemilik', 'Home::index', ['filter' => 'auth:pemilik']);
 $routes->get('/search', 'KostController::search');
+$routes->post('/pembayaran', 'PembayaranController::bayar', ['filter' => 'auth']);
 
 // Route untuk Login
 $routes->get('/login', 'AuthController::login');
@@ -43,6 +44,7 @@ $routes->post('/admin/fasilitas', 'FasilitasController::store');
 $routes->get('/admin/fasilitas/edit/(:num)', 'FasilitasController::edit/$1');
 $routes->post('/admin/fasilitas/update/(:num)', 'FasilitasController::update/$1');
 $routes->get('/admin/fasilitas/delete/(:num)', 'FasilitasController::delete/$1');
+$routes->post('admin/pembayaran/update_status', 'PembayaranController::updateStatus');
 
 $routes->get('/admin/pelanggan', 'PembayaranController::pelanggan');
 
