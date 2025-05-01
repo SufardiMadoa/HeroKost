@@ -278,9 +278,6 @@ class KostOwnerController extends Controller
       }
     }
 
-    // Hapus user
-    $this->usersModel->delete($id);
-
     return redirect()->to('/admin/pemilik-kost')->with('message', 'Pemilik kost berhasil dihapus');
   }
 

@@ -50,7 +50,7 @@
                                                 <p class="text-xs font-weight-bold mb-0"><?= $pemilik['nama_kost'] ?? 'kost putra soekarno' ?></p>
                                             </td>
                                             <td class="text-center">
-                                                <a href="<?= base_url('admin/pemilik-kost/edit/' . $pemilik['id_pemilik_kost']) ?>" class="btn btn-sm btn-secondary rounded-pill">Hapus</a>
+                                                <a href="<?= base_url('admin/pemilik-kost/delete/' . $pemilik['id_pemilik_kost']) ?>" class="btn btn-sm btn-secondary rounded-pill">Hapus</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

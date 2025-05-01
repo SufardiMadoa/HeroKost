@@ -5,7 +5,6 @@
       <div class="col-md-6 mb-4">
         <div class="d-flex align-items-center mb-3">
           <img src="<?= base_url('images/logo.png') ?>" alt="Logo" class="me-2">
-          <h5 class="mb-0">Hero Kost</h5>
         </div>
         <p class="small">
           Hero Kost adalah platform rekomendasi kost terbaik di Malang yang membantu kamu menemukan hunian nyaman, strategis, dan sesuai budget dengan mudah.
