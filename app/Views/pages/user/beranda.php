@@ -573,7 +573,7 @@ body {
               <p class="mb-4">"Cari kost di Malang jadi super gampang berkat Hero Kost! Aku bisa nemuin tempat yang strategis, fasilitasnya lengkap, dan harganya sesuai budget. Gak perlu survei jauh-jauh, semua infonya udah jelas di sini!"</p>
               
               <div class="d-flex align-items-center mt-4">
-                <img src="https://via.placeholder.com/50" alt="Bagus Pratama" class="testimonial-img me-3">
+                <img src="<?= base_url('image/cowok.jpeg') ?>" alt="Bagus Pratama" class="testimonial-img me-3">
                 <div>
                   <div class="fw-bold">Bagus Pratama</div>
                   <div class="small">Mahasiswa</div>
@@ -594,7 +594,7 @@ body {
               <p class="mb-4">"Dulu susah banget cari kost, tapi sejak pakai Hero Kost dapet rekomendasi terbaik. Enak banget! Benar-benar membantu."</p>
               
               <div class="d-flex align-items-center mt-4">
-                <img src="https://via.placeholder.com/50" alt="Annisa Fitri" class="testimonial-img me-3">
+                <img src="<?= base_url('image/cewek.jpeg') ?>" alt="Annisa Fitri" class="testimonial-img me-3">
                 <div>
                   <div class="fw-bold">Annisa Fitri</div>
                   <div class="small">Pekerja Kantoran</div>
