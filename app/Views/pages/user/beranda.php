@@ -218,18 +218,16 @@
             <span style="color:#08080866;">
                 
                 <p >
-                    Murdah tāngaht tīngai yang nyanha dan adalah babijut et Malang bin kush matah dengan Hino Kost. Lami mengkadaan rekomendasi kost tehsak dengan hino veheganga, trafika linguba, dan lama rytanga. Selma yok yang dari rekomendataan kain melalui sebagai kuru, sehingga kaimi kisa mengapatani hushai yang nyanha tānga kushat shuwant' salah kualtas.
-                </p>
+                Mencari tempat tinggal yang nyaman dan sesuai budget di Malang kini lebih mudah dengan Hero Kost. Kami menyediakan rekomendasi kost terbaik dengan harga terjangkau, fasilitas lengkap, dan lokasi strategis. Setiap kost yang kami rekomendasikan telah melalui seleksi ketat, sehingga kamu bisa mendapatkan hunian yang nyaman tanpa harus khawatir soal kualitas.  </p>
                 
                 <p>
-                    Tak perlu kepot tarveli satu per satu, dalam kebital affar kerit yang telah dikazari dengan salah tempengat. Dengan tānga bu kanu kira mengana terenpat, tīngai tidak dengan egalet din tānga muk. Ceti, booling, dan phatah dengan tanang.
-                </p>
+                Tak perlu repot survei satu per satu, cukup jelajahi daftar kost yang telah dikurasi dengan ulasan terpercaya. Dengan Hero Kost, kamu bisa menemukan tempat tinggal ideal dengan cepat dan tanpa ribet. Cari, booking, dan pindah dengan tenang   </p>
             </span>
             
             <div class="divider"></div>
             
             <div class="footer">
-                <p class="btn btn-dark rounded-pill px-4 py-2">KAMI CHUAN BAKING</p>
+                <p class="btn btn-dark rounded-pill px-4 py-2">Mulai Cari Kost Sekarang</p>
             </div>
         </div>
         </div>
@@ -285,7 +283,7 @@
 </div>
 
 <!-- Testimonials section with improved design -->
-<div class="container py-5">
+<div class="container py-5" id="testimoni">
   <div class="row align-items-center mb-5">
     <div class="col-md-5">
       <h5 class="fw-bold mb-2" style="color: #FF5722;">TESTIMONI</h5>

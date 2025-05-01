@@ -26,13 +26,13 @@
           <a class="nav-link" href="<?= site_url('') ?>">Beranda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('tentang') ?>">Tentang</a>
+          <a class="nav-link" href="<?= site_url('#tentang') ?>">Tentang</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= site_url(relativePath: 'rekomendasi') ?>">Rekomendasi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('testimoni') ?>">Testimoni</a>
+          <a class="nav-link" href="<?= site_url('#testimoni') ?>">Testimoni</a>
         </li>
       </ul>
     <?php endif; ?>
@@ -41,7 +41,7 @@
         <?php if (!session()->get('logged_in')): ?>
           <!-- Tombol untuk user yang belum login -->
           <a href="<?= site_url('login') ?>" class="btn me-2">Log in</a>
-          <a href="<?= site_url('register') ?>" class="btn btn-sign-up">Sign Up</a>
+          <a href="<?= site_url('register') ?>" class="btn btn-sign-up bg-dark text-white">Sign Up</a>
         <?php else: ?>
           <!-- Avatar dengan inisial untuk user yang sudah login -->
           <?php
