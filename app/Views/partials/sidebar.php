@@ -19,7 +19,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="<?= site_url('admin/pemilik') ?>" class="nav-link">
           <i class="bi bi-person-badge"></i>
           Pemilik Kost
         </a>

@@ -25,4 +25,7 @@ class AdminController extends BaseController
         $data['kosts'] = $kostModel->findAll();
         return view('admin/manage_kosts', $data);
     }
+    public function pemilikKosts(){
+        return view('pages/admin/pemilikKost/index');
+    }
 }

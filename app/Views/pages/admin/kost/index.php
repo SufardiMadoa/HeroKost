@@ -6,7 +6,10 @@
             background-color: #f5f5f5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    
+        .table th {
+            background-color: #1a3253;
+            color: white;
+        }
 </style>
 <div class="row mb-4">
     <div class="col-12">
@@ -38,10 +41,10 @@
                                 <th>Detail Kost</th>
                                 <th>Foto</th>
                                 <th>Harga</th>
-                                <th>Jenis</th>
-                                <th>Lokasi</th>
-                                <th>Kontak</th>
+                                <!-- <th>Jenis</th> -->
+                                <!-- <th>Lokasi</th> -->
                                 <th>Status</th>
+                                <th>Kontak</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -59,16 +62,14 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
-                                    <td><?= $kost['jenis']; ?></td>
-                                    <td><?= $kost['lokasi']; ?></td>
                                     
-                                    <td><?= $kost['kontak']; ?></td>
                                     <td>
                                         <span class="badge bg-success">Ready</span>
                                     </td>
+                                    <td><?= $kost['kontak']; ?></td>
 
                                     
-                                    <td><?= $kost['alamat_kost']; ?></td>
+                                    
                                     <td>
                                         <div class="btn-group">
                                             <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">

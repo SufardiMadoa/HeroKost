@@ -45,6 +45,7 @@ $routes->post('/admin/fasilitas/update/(:num)', 'FasilitasController::update/$1'
 $routes->get('/admin/fasilitas/delete/(:num)', 'FasilitasController::delete/$1');
 
 $routes->get('/admin/pelanggan', 'PembayaranController::pelanggan');
+$routes->get('/admin/pemilik', 'AdminController::pemilikKosts');
 
 // soory lil yang ini gua kureng
 $routes->get('/kost/detail/(:num)', 'KostController::detail/$1');

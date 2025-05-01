@@ -6,7 +6,10 @@
             background-color: #f5f5f5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    
+        .table th {
+            background-color: #1a3253;
+            color: white;
+        }
 </style>
 <div class="row">
   <!-- Tabel Data -->
