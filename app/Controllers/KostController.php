@@ -90,23 +90,25 @@ class KostController extends ResourceController
   public function detail($id = null)
   {
     $kost = $this->kostModel->find($id);
-   
+
     // Jika kost tidak ditemukan
     if (!$kost) {
       return redirect()->to('/kost')->with('error', 'Data kost tidak ditemukan');
     }
 
     // Mengambil data gambar kost
-    $gambarKost = $this->kostModel->getGambar($id);
-    $gambarUtama = $this->kostModel->getGambarUtama($id);
+    $gambarKost    = $this->kostModel->getGambar($id);
+    $gambarUtama   = $this->kostModel->getGambarUtama($id);
     // Mengambil data fasilitas kost
     $fasilitasKost = $this->kostModel->getFasilitas($id);
+    $pemilikKost   = $this->kostModel->getKostWithOwner($id);
 
     $data = [
       'title'         => 'Detail Kost',
       'kost'          => $kost,
       'gambarUtama'   => $gambarUtama,
       'gambarKost'    => $gambarKost,
+      'pemilikKost'   => $pemilikKost,
       'fasilitasKost' => $fasilitasKost
     ];
 

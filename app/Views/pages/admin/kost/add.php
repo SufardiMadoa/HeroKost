@@ -45,7 +45,7 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="lokasi" class="form-label">Kontak</label>
+                        <label for="lokasi" class="form-label">Lokasi</label>
                         <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= old('lokasi'); ?>" required>
                     </div>
                     
