@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Fasilitas;
 use App\Models\FasilitasKost;
 use App\Models\GambarKost;
 use App\Models\Kost;
@@ -12,12 +13,14 @@ class KostController extends ResourceController
   protected $kostModel;
   protected $gambarKostModel;
   protected $fasilitasKostModel;
+  protected $fasilitasModel;
 
   public function __construct()
   {
     $this->kostModel          = new Kost();
     $this->gambarKostModel    = new GambarKost();
     $this->fasilitasKostModel = new FasilitasKost();
+    $this->fasilitasModel     = new Fasilitas();
   }
 
   private function getGambarUtama($id_kost)
@@ -152,62 +155,118 @@ class KostController extends ResourceController
    */
   public function filter()
   {
-    $minPrice   = $this->request->getVar('min_price');
-    $maxPrice   = $this->request->getVar('max_price');
-    $lokasi     = $this->request->getVar('lokasi');
-    $jenis_kost = $this->request->getVar('jenis');
-    $harga      = $this->request->getVar('harga_kost');
-    // $fasilitas = $this->request->getVar('fasilitas');
+    // Get filter parameters
+    $lokasi     = $this->request->getGet('lokasi');
+    $jenis_kost = $this->request->getGet('jenis_kost');
+    $harga      = $this->request->getGet('harga');
+    $fasilitas  = $this->request->getGet('fasilitas');
 
-    // Mulai query
-    $query = $this->kostModel;
+    // Build query
+    $builder = $this->kostModel->builder();
+    $builder->select('kost.*');
 
-    if ($lokasi) {
-      $query = $query->where('lokasi', $lokasi);
+    // Filter by location if specified
+    if (!empty($lokasi)) {
+      $builder->where('lokasi', $lokasi);
     }
 
-    if ($jenis_kost) {
-      $query = $query->where('jenis_kost', $jenis_kost);
+    // Filter by kost type if specified
+    if (!empty($jenis_kost)) {
+      $builder->where('jenis_kost', $jenis_kost);
     }
 
-    if ($minPrice) {
-      $query = $query->where('harga_kost >=', $minPrice);
-    }
-
-    if ($maxPrice) {
-      $query = $query->where('harga_kost <=', $maxPrice);
-    }
-
-    if ($harga) {
-      if ($harga == 500000) {
-        $query = $query->where('harga_kost <', 500000);
-      } elseif ($harga == 750000) {
-        $query = $query->where('harga_kost <', 750000);
-      } elseif ($harga == 1000000) {
-        $query = $query->where('harga_kost <', 1000000);
-      } elseif ($harga == 1250000) {
-        $query = $query->where('harga_kost <', 1250000);
+    // Filter by price if specified
+    if (!empty($harga)) {
+      switch ($harga) {
+        case '<Rp. 500.000,-':
+          $builder->where('harga_kost <', 500000);
+          break;
+        case '<Rp. 750.000,-':
+          $builder->where('harga_kost <', 750000);
+          break;
+        case '<Rp. 1.000.000,-':
+          $builder->where('harga_kost <', 1000000);
+          break;
+        case '<Rp. 1.250.000,-':
+          $builder->where('harga_kost <', 1250000);
+          break;
       }
     }
 
-    $kosts = $query->paginate(10, 'kost');
+    // Handle legacy price filters if present
+    $min_price = $this->request->getGet('min_price');
+    $max_price = $this->request->getGet('max_price');
 
-    // Tambahkan gambar dan fasilitas ke setiap kost
-    foreach ($kosts as &$kost) {
-      $kost['gambar_utama'] = $this->kostModel->getGambarUtama($kost['id_kost']);
-      $kost['fasilitas']    = $this->kostModel->getFasilitas($kost['id_kost']);
+    if (!empty($min_price)) {
+      $builder->where('harga_kost >=', $min_price);
     }
 
-    $data = [
-      'title'      => 'Filter Kost',
-      'kosts'      => $kosts,
-      'pager'      => $this->kostModel->pager,
-      'min_price'  => $minPrice,
-      'max_price'  => $maxPrice,
+    if (!empty($max_price)) {
+      $builder->where('harga_kost <=', $max_price);
+    }
+
+    // Filter by facilities if specified
+    if (!empty($fasilitas) && is_array($fasilitas)) {
+      // First, get all facility IDs by their names
+      $facilityIds = [];
+      foreach ($fasilitas as $facilityName) {
+        $facility = $this->fasilitasModel->where('nama_fasilitas', $facilityName)->first();
+        if ($facility) {
+          $facilityIds[] = $facility['id_fasilitas'];
+        }
+      }
+
+      // Then, get all kost IDs that have ALL the specified facilities
+      $kostIds = [];
+      $count   = count($facilityIds);
+
+      if ($count > 0) {
+        $db       = \Config\Database::connect();
+        $subquery = $db
+          ->table('fasilitas_kost')
+          ->select('id_kost, COUNT(id_fasilitas) as matched_count')
+          ->whereIn('id_fasilitas', $facilityIds)
+          ->groupBy('id_kost')
+          ->having('matched_count', $count);
+
+        $results = $subquery->get()->getResultArray();
+        foreach ($results as $row) {
+          $kostIds[] = $row['id_kost'];
+        }
+
+        if (!empty($kostIds)) {
+          $builder->whereIn('id_kost', $kostIds);
+        } else {
+          // No kosts match the facilities, return empty result
+          $data['kosts']  = [];
+          $data['filter'] = [
+            'lokasi'     => $lokasi,
+            'jenis_kost' => $jenis_kost,
+            'harga'      => $harga,
+            'fasilitas'  => $fasilitas
+          ];
+          return view('kost/filter_results', $data);
+        }
+      }
+    }
+
+    // Execute the query
+    $kosts = $builder->get()->getResultArray();
+
+    // Add additional data for each kost
+    foreach ($kosts as &$kost) {
+      $kost['gambar_utama']     = $this->kostModel->getGambarUtama($kost['id_kost']);
+      $kost['fasilitas']        = $this->kostModel->getFasilitas($kost['id_kost']);
+      $kost['jumlah_fasilitas'] = $this->kostModel->countFasilitas($kost['id_kost']);
+    }
+
+    // Prepare data for the view
+    $data['kosts']  = $kosts;
+    $data['filter'] = [
       'lokasi'     => $lokasi,
       'jenis_kost' => $jenis_kost,
       'harga'      => $harga,
-      // 'fasilitas' => $fasilitas
+      'fasilitas'  => $fasilitas
     ];
 
     return view('/partials/navbar') . view('pages/user/rekomendasi', $data) . view('partials/footer');
@@ -374,20 +433,29 @@ class KostController extends ResourceController
   // Display form to edit kost (UPDATE form)
   public function edit($id = null)
   {
-    // Find the kost by ID
-    $kost = $this->kostModel->find($id);
+    $kostModel      = new Kost();
+    $fasilitasModel = new Fasilitas();
 
-    // If kost not found, show 404 error
-    if (!$kost) {
-      throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Kost dengan ID ' . $id . ' tidak ditemukan');
+    // Ambil data kost
+    $kost = $kostModel->find($id);
+
+    if (empty($kost)) {
+      return redirect()->to('/admin/kost')->with('error', 'Kost tidak ditemukan');
     }
 
-    $data = [
-      'title' => 'Edit Data Kost',
-      'kost'  => $kost
-    ];
+    // Ambil fasilitas kost
+    $kost['fasilitas'] = $kostModel->getFasilitas($id);
 
-    return view('pages/admin/kost/update', $data);
+    // Ambil gambar kost
+    $kost['gambar'] = $kostModel->getGambar($id);
+
+    // Ambil semua fasilitas untuk dipilih
+    $fasilitas = $fasilitasModel->findAll();
+
+    return view('pages/admin/kost/update', [
+      'kost'      => $kost,
+      'fasilitas' => $fasilitas
+    ]);
   }
 
   // Process the form submission to update kost (UPDATE process)

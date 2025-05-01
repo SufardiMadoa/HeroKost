@@ -2,18 +2,42 @@
 
 <?= $this->section('content'); ?>
 <style>
-     body {
-            background-color: #f5f5f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .table th {
-            background-color: #1a3253;
-            color: white;
-        }
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #example thead th {
+        background-color: #1a3253 !important;
+        color: #fff !important;
+    }
+    .table thead {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .dataTables_filter {
+        text-align: right !important;
+    }
+
+    .dataTables_filter input {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        padding: 5px 10px;
+        outline: none;
+        transition: 0.3s ease;
+    }
+
+    .dataTables_filter input:focus {
+        border-color: #495057;
+        box-shadow: 0 0 0 0.2rem rgba(0,0,0,0.1);
+    }
 </style>
+
+<!-- DataTables CSS -->
+
 <div class="row mb-4">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-header bg-white d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">Kelola Daftar Kost</h5>
                 <div>
@@ -33,25 +57,25 @@
             
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="kostTable" class="table table-striped table-hover">
+                    <table id="example"  class="display compact table table-striped table-hove">
                         <thead>
-                            <tr>
-                                <th>ID_Kost</th>
+                            <tr class="bg-dark">
+                                <th>No</th>
                                 <th>Nama Kost</th>
                                 <th>Detail Kost</th>
                                 <th>Foto</th>
                                 <th>Harga</th>
-                                <!-- <th>Jenis</th> -->
-                                <!-- <th>Lokasi</th> -->
                                 <th>Status</th>
+                                <th>Kontak</th>
+                                <th>Kontak</th>
                                 <th>Kontak</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($kosts as $kost): ?>
+                            <?php foreach ($kosts as $index => $kost): ?>
                                 <tr>
-                                    <td><?= $kost['id_kost']; ?></td>
+                                    <td><?= $index + 1; ?></td>
                                     <td><?= $kost['nama_kost']; ?></td>
                                     <td><?= $kost['deskripsi_kost']; ?></td>
                                     <td>
@@ -62,20 +86,18 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
-                                    
+                                    <td><?= $kost['jenis']; ?></td>
+                                    <td><?= $kost['lokasi']; ?></td>
+                                    <td><?= $kost['kontak']; ?></td>
                                     <td>
                                         <span class="badge bg-success">Ready</span>
                                     </td>
-                                    <td><?= $kost['kontak']; ?></td>
-
-                                    
-                                    
                                     <td>
                                         <div class="btn-group">
                                             <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <button type="button" class="btn-hapus" data-id="<?= $kost['id_kost']; ?>">
+                                            <button type="button" class="btn btn-sm btn-danger btn-hapus" data-id="<?= $kost['id_kost']; ?>">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </div>
@@ -116,7 +138,14 @@
 // Tunggu seluruh dokumen termuat
 document.addEventListener('DOMContentLoaded', function () {
     // Inisialisasi DataTable
-  
+    if ($.fn.DataTable) {
+        $('#kostTable').DataTable({
+            responsive: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json'
+            }
+        });
+    }
 
     // Setup delete confirmation
     const deleteButtons = document.querySelectorAll('.btn-hapus');
@@ -131,8 +160,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-</script>
-  
 
+new DataTable('#example');
+</script>
 <?= $this->endSection(); ?>
 

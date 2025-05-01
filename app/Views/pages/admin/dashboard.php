@@ -1,6 +1,11 @@
 <?= $this->extend('layout/admin-layout'); ?>
-
 <?= $this->section('content'); ?>
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.css">
+<!-- Font Awesome untuk ikon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         body {
             background-color: #f5f5f5;
@@ -209,72 +214,69 @@
                 <div class="table-container">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4>Kelola Daftar Kost</h4>
-                        <div class="search-container">
+                        <!-- <div class="search-container">
                             <input type="text" class="form-control" placeholder="Cari ID Kost" style="padding-right: 50px;">
-                            <button class="btn btn-dark">
-                                <i class="fas fa-search"></i>
+                            <button class="btn btn-dark" style="height: 100%; width: 50pxP;">
+                                <i class="fas fa-search" style="color: #f5f5f5;"></i>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                     
                     <div class="card-body">
                 <div class="table-responsive">
-                    <table id="kostTable" class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID_Kost</th>
-                                <th>Nama Kost</th>
-                                <th>Foto</th>
-                                <th>Harga</th>
-                                <th>Jenis</th>
-                                <th>Lokasi</th>
-                                <th>Kontak</th>
-                                <th>Status</th>
-                                <th>Alamat</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($kosts as $kost): ?>
+                <table id="example" class="display table table-striped table-hover">
+                            <thead>
                                 <tr>
-                                    <td><?= $kost['id_kost']; ?></td>
-                                    <td><?= $kost['nama_kost']; ?></td>
-                                    <td>
-                                        <?php if (!empty($kost['foto_kost'])): ?>
-                                            <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
-                                        <?php else: ?>
-                                            <span class="text-muted">No Image</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
-                                    <td><?= $kost['jenis']; ?></td>
-                                    <td><?= $kost['lokasi']; ?></td>
-                                    
-                                    <td><?= $kost['kontak']; ?></td>
-                                    <td>
-                                        <span class="badge bg-success">Ready</span>
-                                    </td>
-
-                                    
-                                    <td><?= $kost['alamat_kost']; ?></td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <button type="button" class="btn-hapus" data-id="<?= $kost['id_kost']; ?>">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
+                                    <th>ID_Kost</th>
+                                    <th>Nama Kost</th>
+                                    <th>Foto</th>
+                                    <th>Harga</th>
+                                    <th>Jenis</th>
+                                    <th>Lokasi</th>
+                                    <th>Kontak</th>
+                                    <th>Status</th>
+                                    <th>Alamat</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($kosts as $kost): ?>
+                                    <tr>
+                                        <td><?= $kost['id_kost']; ?></td>
+                                        <td><?= $kost['nama_kost']; ?></td>
+                                        <td>
+                                            <?php if (!empty($kost['foto_kost'])): ?>
+                                                <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
+                                            <?php else: ?>
+                                                <span class="text-muted">No Image</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
+                                        <td><?= $kost['jenis']; ?></td>
+                                        <td><?= $kost['lokasi']; ?></td>
+                                        <td><?= $kost['kontak']; ?></td>
+                                        <td>
+                                            <span class="badge bg-success">Ready</span>
+                                        </td>
+                                        <td><?= $kost['alamat_kost']; ?></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button type="button" class="btn-hapus" data-id="<?= $kost['id_kost']; ?>">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                 </div>
             </div>
                     
-                    <nav>
+                    <!-- <nav>
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -286,10 +288,18 @@
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> -->
                 </div>
             </div>
         </div>
     </div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
+
+<script>
+new DataTable('#example');
+</script>
 
 <?= $this->endSection(); ?>

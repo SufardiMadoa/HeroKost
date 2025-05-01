@@ -48,10 +48,10 @@
         
         <div class="signup-text">
             <span class="text-muted">tidak mempunyai akun? </span>
-            <a href="<?= base_url('/register') ?>">daftar sekarang</a>
+            <a href="<?= base_url('/signup') ?>">daftar sekarang</a>
             <br>
             <span class="text-muted">promosi kost? </span>
-            <a href="<?= base_url('/login-pemilik') ?>">masuk sebagai pemilik kost</a>
+            <a href="<?= base_url('/signup/pemilik') ?>">masuk sebagai pemilik kost</a>
         </div>
     </form>
 </div>

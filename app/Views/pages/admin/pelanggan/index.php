@@ -102,7 +102,7 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="table-wrapper">
-                        <table class="table table-hover">
+                    <table id="example"  class="display compact table table-striped table-hove">
                             <thead class="bg-light">
                                 <tr>
                                     <th class="px-3 py-3">ID</th>
@@ -310,6 +310,8 @@
       alert('Terjadi kesalahan saat memperbarui status pembayaran.');
     });
   }
+
+  new DataTable('#example');
 </script>
 
 <?= $this->endSection(); ?>

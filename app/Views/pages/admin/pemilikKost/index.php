@@ -19,7 +19,7 @@
         <h5 class="mb-0">Kelola Pelanggan</h5>
       </div>
       <div class="card-body table-responsive">
-        <table class="table table-striped table-hover">
+      <table id="example"  class="display compact table table-striped table-hove">
           <thead>
             <tr>
               <th>Id_Pemilik_kost</th>
@@ -74,6 +74,8 @@
   function confirmHapus() {
     return confirm("Apakah Anda yakin ingin menghapus data ini?");
   }
+
+  new DataTable('#example');
 </script>
   
 

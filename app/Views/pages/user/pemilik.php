@@ -50,7 +50,7 @@
                         </div>
                     <?php endif ?>
 
-                    <form action="<?= base_url('admin/kost'); ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('pemilik/create'); ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
                         
                         <div class="row g-4">
@@ -162,8 +162,7 @@
                                                     placeholder="Jelaskan detail tentang kost (ukuran kamar, lokasi strategis, peraturan, dll)" required><?= old('deskripsi_kost'); ?></textarea>
                                                 <small class="text-muted"><i class="bi bi-lightbulb me-1"></i>Tip: Deskripsi yang detail akan membantu calon penghuni mendapatkan informasi yang mereka butuhkan</small>
                                             </div>
-                                        </div>
-                                        
+                                        </div>  
                                         <!-- Fasilitas -->
                                         <div class="mb-0 row">
                                             <label class="col-lg-3 col-form-label fw-semibold">Fasilitas Kost <span class="text-danger">*</span></label>

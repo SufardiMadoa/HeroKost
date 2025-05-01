@@ -20,7 +20,7 @@
       left: 0;
       width: 250px;
       height: 100vh;
-      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+      
       color: #fff;
       z-index: 1000;
       transition: all 0.3s;
@@ -66,7 +66,9 @@
       position: absolute;
       bottom: 0;
       width: 100%;
+      margin-right: 20px;
       padding: 20px;
+      padding-right: 60px;
       border-top: 1px solid rgba(255,255,255,0.1);
     }
     

@@ -20,7 +20,7 @@
                     <?php endif; ?>
 
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle">
+                    <table id="example"  class="display compact table table-striped table-hove">
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" width="10%">#</th>
@@ -81,5 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 });
+new DataTable('#example');
 </script>
 <?= $this->endSection(); ?>
