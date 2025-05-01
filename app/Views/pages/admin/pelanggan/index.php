@@ -33,15 +33,9 @@
                     <table id="kostTable" class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID_Kost</th>
-                                <th>Nama Kost</th>
-                                <th>Detail Kost</th>
-                                <th>Foto</th>
-                                <th>Harga</th>
-                                <th>Jenis</th>
-                                <th>Lokasi</th>
-                                <th>Kontak</th>
-                                <th>Status</th>
+                                <th>Id_Pelanggan</th>
+                                <th>Id_Kost</th>
+                              
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -50,24 +44,7 @@
                                 <tr>
                                     <td><?= $kost['id_kost']; ?></td>
                                     <td><?= $kost['nama_kost']; ?></td>
-                                    <td><?= $kost['deskripsi_kost']; ?></td>
-                                    <td>
-                                        <?php if (!empty($kost['foto_kost'])): ?>
-                                            <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
-                                        <?php else: ?>
-                                            <span class="text-muted">No Image</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
-                                    <td><?= $kost['jenis']; ?></td>
                                     
-                                    <td><?= $kost['kontak']; ?></td>
-                                    <td>
-                                        <span class="badge bg-success">Ready</span>
-                                    </td>
-
-                                    
-                                    <td><?= $kost['alamat_kost']; ?></td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="<?= base_url('admin/kost/edit/' . $kost['id_kost']); ?>" class="btn btn-sm btn-warning me-1">

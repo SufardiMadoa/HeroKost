@@ -81,98 +81,69 @@
         .mb-4 {
             margin-bottom: 1.5rem;
         }
-        .card {
-            position: relative;
+        .card-stat {
             display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 1px solid rgba(0,0,0,.125);
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             height: 100%;
         }
-        .card-body {
-            flex: 1 1 auto;
-            padding: 1.25rem;
-            display: flex;
-            align-items: center;
+        
+        .card-stat h4 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: #333;
         }
-        .card-title {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        .card-subtitle {
-            color: #6c757d;
-            margin-bottom: 0.25rem;
-            font-size: 0.875rem;
-        }
-        .card-text {
-            margin-bottom: 0;
-            font-size: 0.875rem;
-            line-height: 1.4;
-        }
+        
         .stats-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #f8f9fa;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background-color: #f0f4f9;
-            margin-right: 1rem;
-        }
-        .stats-icon i {
-            font-size: 1.5rem;
-            color: #0e2c5a;
-        }
-        .me-3 {
-            margin-right: 1rem;
-        }
-        .h-100 {
-            height: 100%;
-        }
-        h3.card-title {
-            font-size: 1.75rem;
-            margin-bottom: 0;
-            font-weight: 700;
+            font-size: 20px;
             color: #212529;
         }
+        
         .welcome-card {
-            background-color: #0e2c5a;
+            background-color: #0f3057;
             color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-        .welcome-card .card-title {
-            color: white;
-            margin-bottom: 0.5rem;
+        
+        .welcome-card .card-body {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        .welcome-card .card-text {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.8rem;
+        
+        .welcome-card img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
         }
-        .rounded {
-            border-radius: 50% !important;
-            width: 50px;
-            height: 50px;
-        }
-        .small {
-            font-size: 0.875rem;
+        
+        .text-muted {
+            color: #6c757d !important;
         }
         
         /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .col-md-4 {
-                flex: 0 0 50%;
-                max-width: 50%;
+        @media (max-width: 767.98px) {
+            .welcome-card .card-body {
+                flex-direction: column;
+                text-align: center;
             }
-        }
-        @media (max-width: 768px) {
-            .col-md-4 {
-                flex: 0 0 100%;
-                max-width: 100%;
+            
+            .welcome-card img {
+                margin-bottom: 15px;
             }
         }
     </style>
@@ -181,52 +152,56 @@
     <div class="container-fluid">
         <div class="row my-4">
             <div class="col-md-12">
-                <h2 class="mb-4">Dashboard Admin Hero Kost</h2>
+                <h2 class="mb-">Dashboard Admin Hero Kost</h2>
             </div>
         </div>
 
         <!-- Stats Cards -->
-        <div class="row mb-4">
-        <div class="col-md-4 mb-3">
-            <div class="card h-100">
-                <div class="card-body">
+        <div class=" pb-4">
+        <div class="row g-1">
+            <!-- Total Daftar Kost -->
+            <div class="col-md-3">
+                <div class="card-stat">
                     <div>
-                        <h6 class="card-subtitle text-muted">Total Daftar Kost</h6>
-                        <h3 class="card-title">468+</h3>
+                        <h4>468+</h4>
+                        <small class="text-muted">Total Daftar Kost</small>
                     </div>
-                    <div class="stats-icon" style="margin-left: auto;">
+                    <div class="stats-icon">
                         <i class="fas fa-home"></i>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card h-100">
-                <div class="card-body">
+
+            <!-- Total Customer -->
+            <div class="col-md-3">
+                <div class="card-stat">
                     <div>
-                        <h6 class="card-subtitle text-muted">Total Customer</h6>
-                        <h3 class="card-title">123+</h3>
+                        <h4>123+</h4>
+                        <small class="text-muted">Total Customer</small>
                     </div>
-                    <div class="stats-icon" style="margin-left: auto;">
+                    <div class="stats-icon">
                         <i class="fas fa-users"></i>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card welcome-card h-100">
-                <div class="card-body">
-                    <div class="me-3">
-                        <img src="/api/placeholder/60/60" class="rounded" alt="Admin Profile">
-                    </div>
-                    <div>
-                        <h5 class="card-title">Selamat Datang, di Dashboard Admin Hero Kost!</h5>
-                        <p class="card-text small">Kelola data kost dengan lebih mudah dan efisien! Dengan dashboard ini, kamu bisa mengelola listing kost dan memastikan setiap rekomendasi tetap worth it dan terpercaya.</p>
+
+            <!-- Welcome Card -->
+            <div class="col-md-6">
+                <div class="welcome-card ">
+                    <div class="card-body">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded" alt="Admin Profile">
+                        <div>
+                            <h6 class="mb-1 fw-bold">Selamat Datang, di Dashboard Admin Hero Kost!</h6>
+                            <p class="mb-0 small">
+                                Kelola data kost dengan lebih mudah dan efisien! Dengan dashboard ini, kamu bisa mengelola listing kost dan memastikan setiap rekomendasi tetap <i>worth it</i> dan terpercaya.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
         <!-- Main Content -->
         <div class="row">
