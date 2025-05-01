@@ -25,7 +25,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="<?= site_url('admin/pelanggan') ?>" class="nav-link">
           <i class="bi bi-people"></i>
           Pelanggan
         </a>

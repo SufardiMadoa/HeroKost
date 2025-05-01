@@ -31,4 +31,26 @@ class PembayaranController extends BaseController
 
     return redirect()->to('/user/history');
   }
+
+
+  public function pelanggan(){
+
+    // $model = new Pembayaran();
+
+    // $bukti = $this->request->getFile('bukti_pembayaran');
+    // // $bukti->move('uploads/bukti');
+
+    // $data = [
+    //   'id_user'           => session()->get('id_user'),
+    //   'id_kost'           => $this->request->getPost('id_kost'),
+    //   'jumlah_bayar'      => $this->request->getPost('jumlah_bayar'),
+    //   'tanggal_bayar'     => date('Y-m-d'),
+    //   // 'bukti_pembayaran'  => $bukti->getName(),
+    //   'status_pembayaran' => 'Pending',
+    // ];
+
+    // $model->save($data);
+
+    return view('pages/admin/pelanggan/index');
+}
 }

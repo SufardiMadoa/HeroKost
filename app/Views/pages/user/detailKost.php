@@ -289,14 +289,12 @@
 
 <h6 class="mb-0"><?= isset($kost['nama_pemilik']) ? $kost['nama_pemilik'] : 'Pemilik Kost' ?></h6>
 <small class="text-muted">Pemilik Kost</small>
-<form method="POST" enctype="multipart/form-data">
-  <div class="custom-input-group mt-3">
-    <input type="file" class="custom-input" id="fileInput" name="file" onchange="updateFileName()" required>
-    <button type="submit" class="custom-button">Kirim</button>
-  </div>
-  <!-- <small id="fileNamePreview" class="form-text text-muted mt-1">Belum ada file dipilih</small> -->
-</form>
-              <div>
+<form method="POST" action="<?= base_url('/bayar') ?>" enctype="multipart/form-data">
+  <input type="hidden" name="id_kost" value="<?= $id_kost ?>">
+  <input type="number" name="jumlah_bayar" required>
+  <input type="file" name="bukti_pembayaran" required>
+  <button type="submit">Kirim</button>
+</form>     <div>
                 </div>
             </div>
         </div>

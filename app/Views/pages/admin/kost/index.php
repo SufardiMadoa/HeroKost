@@ -60,6 +60,7 @@
                                     </td>
                                     <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
                                     <td><?= $kost['jenis']; ?></td>
+                                    <td><?= $kost['lokasi']; ?></td>
                                     
                                     <td><?= $kost['kontak']; ?></td>
                                     <td>

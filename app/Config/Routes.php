@@ -43,3 +43,8 @@ $routes->post('/admin/fasilitas', 'FasilitasController::store');
 $routes->get('/admin/fasilitas/edit/(:num)', 'FasilitasController::edit/$1');
 $routes->post('/admin/fasilitas/update/(:num)', 'FasilitasController::update/$1');
 $routes->get('/admin/fasilitas/delete/(:num)', 'FasilitasController::delete/$1');
+
+$routes->get('/admin/pelanggan', 'PembayaranController::pelanggan');
+
+// soory lil yang ini gua kureng
+$routes->get('/kost/detail/(:num)', 'KostController::detail/$1');
