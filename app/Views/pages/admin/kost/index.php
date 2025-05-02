@@ -63,7 +63,6 @@
                                 <th>No</th>
                                 <th>Nama Kost</th>
                                 <th>Detail Kost</th>
-                                <th>Foto</th>
                                 <th>Harga</th>
                                 <th>Status</th>
                                 <th>Kontak</th>
@@ -78,13 +77,7 @@
                                     <td><?= $index + 1; ?></td>
                                     <td><?= $kost['nama_kost']; ?></td>
                                     <td><?= $kost['deskripsi_kost']; ?></td>
-                                    <td>
-                                        <?php if (!empty($kost['foto_kost'])): ?>
-                                            <img src="<?= base_url($kost['gambar_utama']['path_gambar']); ?>" alt="Foto Kost" width="50" class="img-thumbnail">
-                                        <?php else: ?>
-                                            <span class="text-muted">No Image</span>
-                                        <?php endif; ?>
-                                    </td>
+                                    
                                     <td>Rp. <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></td>
                                     <td><?= $kost['jenis']; ?></td>
                                     <td><?= $kost['lokasi']; ?></td>

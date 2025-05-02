@@ -13,6 +13,22 @@ $routes->get('/kost/search', 'KostController::search');
 $routes->get('/kost/filter', 'KostController::filter');
 $routes->get('/profile', 'ProfileController::viewProfile');
 $routes->get('/pemilik', 'Home::index', ['filter' => 'auth:pemilik']);
+$routes->get('/pemilik/kost', 'KostOwnerController::showAll', ['filter' => 'auth:pemilik']);
+$routes->get('/pemilik/kost/detail/(:num)', 'KostOwnerController::show/$1', ['filter' => 'auth:pemilik']);
+$routes->get('pemilik/kost/edit/(:num)', 'KostOwnerController::editKostOwner/$1');
+$routes->post('pemilik/kost/update/(:num)', 'KostOwnerController::updateKostOwner/$1');
+
+// Delete kost
+$routes->get('pemilik/kost/delete/(:num)', 'KostOwnerController::deleteKostOwner/$1');
+
+// View kost details
+$routes->get('pemilik/kost/view/(:num)', 'KostOwnerController::viewKostOwner/$1');
+
+// Delete image
+$routes->get('pemilik/kost/delete-image/(:num)', 'KostOwnerController::deleteImage/$1');
+
+// Update kost status (AJAX)
+$routes->post('pemilik/kost/update-status', 'KostOwnerController::updateStatus');
 $routes->get('/search', 'KostController::search');
 $routes->post('/pembayaran', 'PembayaranController::bayar', ['filter' => 'auth']);
 

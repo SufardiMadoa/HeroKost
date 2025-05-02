@@ -351,7 +351,7 @@
           <div class="card h-100">
             <!-- Badges for kost type and availability -->
             <span class="badge-kost-type">
-              <?= $kost['jenis'] == 'putra' ? 'Kost Putra' : ($kost['jenis'] == 'putri' ? 'Kost Putri' : 'Kost Campur') ?>
+              <?= $kost['jenis'] == '' ? 'Kost Putra' : ($kost['jenis'] == 'putri' ? 'Kost Putri' : 'Kost Campur') ?>
             </span>
           
             

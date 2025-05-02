@@ -1,4 +1,3 @@
-
 <!-- Hero Section -->
 <section class="hero-section d-flex align-items-center justify-content-center text-center" style="height: 500px; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('<?= base_url('image/beranda.jpg') ?>'); background-size: cover; background-position: center; background-attachment: fixed;">
   <div class="container text-white">
@@ -18,7 +17,7 @@
                 <div class="card-header bg-dark text-white p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="fw-bold fs-4 mb-0">Form Tambah Data Kost</h2>
-                        <a href="<?= base_url('admin/kost'); ?>" class="btn btn-sm btn-light rounded-circle">
+                        <a href="<?= base_url('pemilik/kost'); ?>" class="btn btn-sm btn-light rounded-circle">
                             <i class="bi bi-x-lg"></i>
                         </a>
                     </div>
@@ -99,14 +98,54 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-0 row">
+                                        <!-- Status Kost -->
+                                        <div class="mb-4 row">
+                                            <label for="status" class="col-lg-3 col-form-label fw-semibold">Status <span class="text-danger">*</span></label>
+                                            <div class="col-lg-9">
+                                                <div class="row">
+                                                    <div class="col-md-4 mb-2 mb-md-0">
+                                                        <input type="radio" class="btn-check" name="status" id="statusReady" value="ready" <?= old('status') == 'ready' ? 'checked' : '' ?> required>
+                                                        <label class="btn btn-outline-success w-100" for="statusReady">
+                                                            <i class="bi bi-check-circle me-2"></i>Ready
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4 mb-2 mb-md-0">
+                                                        <input type="radio" class="btn-check" name="status" id="statusBooked" value="booked" <?= old('status') == 'booked' ? 'checked' : '' ?>>
+                                                        <label class="btn btn-outline-warning w-100" for="statusBooked">
+                                                            <i class="bi bi-bookmark-fill me-2"></i>Booked
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="radio" class="btn-check" name="status" id="statusMaintenance" value="maintenance" <?= old('status') == 'maintenance' ? 'checked' : '' ?>>
+                                                        <label class="btn btn-outline-secondary w-100" for="statusMaintenance">
+                                                            <i class="bi bi-tools me-2"></i>Maintenance
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 row">
                                             <label for="lokasi" class="col-lg-3 col-form-label fw-semibold">Lokasi <span class="text-danger">*</span></label>
                                             <div class="col-lg-9">
                                                 <div class="input-group">
-                                                <span class="input-group-text bg-white"><i class="bi bi-geo-alt"></i></span>
-                                                    <input type="text" class="form-control" id="lokasi" name="lokasi" 
-                                                        value="<?= old('lokasi'); ?>" placeholder="Masukan Lokasi Kost Anda" required>
+                                                    <span class="input-group-text bg-white"><i class="bi bi-geo-alt"></i></span>
+                                                    <select class="form-select" id="lokasi" name="lokasi" required>
+                                                        <option value="" selected disabled>Pilih lokasi kost</option>
+                                                        <option value="SIGURA-GURA" <?= old('lokasi') == 'SIGURA-GURA' ? 'selected' : '' ?>>SIGURA-GURA</option>
+                                                        <option value="SOEKARNO HATTA" <?= old('lokasi') == 'SOEKARNO HATTA' ? 'selected' : '' ?>>SOEKARNO HATTA</option>
+                                                        <option value="MERJOSARI" <?= old('lokasi') == 'MERJOSARI' ? 'selected' : '' ?>>MERJOSARI</option>
+                                                        <option value="LANDUNGSARI" <?= old('lokasi') == 'LANDUNGSARI' ? 'selected' : '' ?>>LANDUNGSARI</option>
+                                                        <option value="SUDIMORO" <?= old('lokasi') == 'SUDIMORO' ? 'selected' : '' ?>>SUDIMORO</option>
+                                                        <option value="SUMBERSARI" <?= old('lokasi') == 'SUMBERSARI' ? 'selected' : '' ?>>SUMBERSARI</option>
+                                                        <option value="DIENG" <?= old('lokasi') == 'DIENG' ? 'selected' : '' ?>>DIENG</option>
+                                                        <option value="TIDAR" <?= old('lokasi') == 'TIDAR' ? 'selected' : '' ?>>TIDAR</option>
+                                                        <option value="CANDI" <?= old('lokasi') == 'CANDI' ? 'selected' : '' ?>>CANDI</option>
+                                                        <option value="TIRTO" <?= old('lokasi') == 'TIRTO' ? 'selected' : '' ?>>TIRTO</option>
+                                                        <option value="SAXOPHONE" <?= old('lokasi') == 'SAXOPHONE' ? 'selected' : '' ?>>SAXOPHONE</option>
+                                                    </select>
                                                 </div>
+                                                <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Pilih lokasi kost dari daftar</small>
                                             </div>
                                         </div>
                                         
@@ -162,47 +201,58 @@
                                                     placeholder="Jelaskan detail tentang kost (ukuran kamar, lokasi strategis, peraturan, dll)" required><?= old('deskripsi_kost'); ?></textarea>
                                                 <small class="text-muted"><i class="bi bi-lightbulb me-1"></i>Tip: Deskripsi yang detail akan membantu calon penghuni mendapatkan informasi yang mereka butuhkan</small>
                                             </div>
-                                        </div>  
-                                        <!-- Fasilitas -->
-                                        <div class="mb-0 row">
-                                            <label class="col-lg-3 col-form-label fw-semibold">Fasilitas Kost <span class="text-danger">*</span></label>
-                                            <div class="col-lg-9">
-                                                <?php
-                                                // Assuming you have a list of facilities from your controller
-                                                $facilities = [
-                                                    1  => ['Kamar Mandi Dalam', 'bi-droplet'],
-                                                    2  => ['AC', 'bi-snow'],
-                                                    3  => ['WiFi', 'bi-wifi'],
-                                                    4  => ['Kasur', 'bi-laptop'],
-                                                    5  => ['Lemari', 'bi-cabinet'],
-                                                    6  => ['Meja Belajar', 'bi-lamp-desk'],
-                                                    7  => ['Parkir Motor', 'bi-bicycle'],
-                                                    8  => ['Parkir Mobil', 'bi-truck'],
-                                                    9  => ['Dapur Bersama', 'bi-fire'],
-                                                    10 => ['Ruang Tamu', 'bi-house-door']
-                                                ];
+                                        </div>
 
-                                                // Get old selected values as array
-                                                $oldFasilitas = old('fasilitas') ? (is_array(old('fasilitas')) ? old('fasilitas') : [old('fasilitas')]) : [];
-                                                ?>
-                                                
-                                                <div class="row g-2">
-                                                    <?php foreach ($facilities as $id => $info): ?>
-                                                    <div class="col-md-6">
-                                                        <div class="form-check custom-checkbox border rounded-3 p-3">
-                                                            <input class="form-check-input" type="checkbox" name="fasilitas[]" 
-                                                                   value="<?= $id ?>" id="fasilitas<?= $id ?>"
-                                                                   <?= in_array((string) $id, $oldFasilitas) ? 'checked' : '' ?>>
-                                                            <label class="form-check-label w-100" for="fasilitas<?= $id ?>">
-                                                                <i class="bi <?= $info[1] ?> me-2 text-primary"></i><?= $info[0] ?>
-                                                            </label>
+                                        <!-- Detail Tambahan -->
+                                        <div class="mb-4 row">
+                                            <label class="col-lg-3 col-form-label fw-semibold">Detail Tambahan</label>
+                                            <div class="col-lg-9">
+                                                <div id="detail-container">
+                                                    <div class="row mb-2 detail-row">
+                                                        <div class="col-md-5">
+                                                            <input type="text" name="detail_label[]" class="form-control" placeholder="Label (contoh: Jarak Dari Kampus A)">
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <input type="text" name="detail_deskripsi[]" class="form-control" placeholder="Deskripsi (contoh: 5 Km)">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn btn-success btn-sm add-detail w-100">
+                                                                <i class="bi bi-plus-circle"></i> Tambah
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                    <?php endforeach; ?>
                                                 </div>
-                                                <small class="text-muted mt-2 d-block"><i class="bi bi-info-circle me-1"></i>Pilih minimal satu fasilitas</small>
+                                                <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Tambahkan informasi seperti jarak fasilitas umum/kampus, ukuran kamar, kapasitas listrik, daya air, dll.</small>
                                             </div>
                                         </div>
+                                        
+                                        <!-- Fasilitas -->
+<!-- Fasilitas - Dynamic from database -->
+                                    <div class="mb-0 row">
+                                        <label class="col-lg-3 col-form-label fw-semibold">Fasilitas Kost <span class="text-danger">*</span></label>
+                                        <div class="col-lg-9">
+                                            <?php
+                                            // Get old selected values as array
+                                            $oldFasilitas = old('fasilitas') ? (is_array(old('fasilitas')) ? old('fasilitas') : [old('fasilitas')]) : [];
+                                            ?>
+                                            
+                                            <div class="row g-2">
+                                                <?php foreach ($fasilitas as $item): ?>
+                                                <div class="col-md-6">
+                                                    <div class="form-check custom-checkbox border rounded-3 p-3">
+                                                        <input class="form-check-input" type="checkbox" name="fasilitas[]" 
+                                                            value="<?= $item['id_fasilitas'] ?>" id="fasilitas<?= $item['id_fasilitas'] ?>"
+                                                            <?= in_array((string) $item['id_fasilitas'], $oldFasilitas) ? 'checked' : '' ?>>
+                                                        <label class="form-check-label w-100" for="fasilitas<?= $item['id_fasilitas'] ?>">
+                                                            <i class="bi bi-check-circle me-2 text-primary"></i><?= $item['nama_fasilitas'] ?>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <small class="text-muted mt-2 d-block"><i class="bi bi-info-circle me-1"></i>Pilih minimal satu fasilitas</small>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -290,6 +340,7 @@
 <script>
     // Display preview of selected images with enhanced preview
     document.addEventListener('DOMContentLoaded', function() {
+        // Handle file upload preview
         const inputFoto = document.getElementById('foto_kost');
         const previewContainer = document.getElementById('preview-container');
         const uploadBox = inputFoto.closest('.upload-box');
@@ -402,6 +453,34 @@
                     thumbnailRow.appendChild(moreCol);
                 }
             }
+        });
+
+        // Handle detail tambahan
+        const addDetailBtn = document.querySelector('.add-detail');
+        const detailContainer = document.getElementById('detail-container');
+        
+        addDetailBtn.addEventListener('click', function() {
+            const newRow = document.createElement('div');
+            newRow.className = 'row mb-2 detail-row';
+            newRow.innerHTML = `
+                <div class="col-md-5">
+                    <input type="text" name="detail_label[]" class="form-control" placeholder="Label (contoh: Ukuran Kamar)">
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="detail_deskripsi[]" class="form-control" placeholder="Deskripsi (contoh: 3x4 meter)">
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger btn-sm remove-detail w-100">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </div>
+            `;
+            detailContainer.appendChild(newRow);
+            
+            // Add event listener to the new remove button
+            newRow.querySelector('.remove-detail').addEventListener('click', function() {
+                detailContainer.removeChild(newRow);
+            });
         });
     });
 </script>

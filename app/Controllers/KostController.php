@@ -6,6 +6,7 @@ use App\Models\Fasilitas;
 use App\Models\FasilitasKost;
 use App\Models\GambarKost;
 use App\Models\Kost;
+use App\Models\KostDetailTambahan;
 use CodeIgniter\RESTful\ResourceController;
 
 class KostController extends ResourceController
@@ -13,14 +14,16 @@ class KostController extends ResourceController
   protected $kostModel;
   protected $gambarKostModel;
   protected $fasilitasKostModel;
+  protected $kostDetailTambahanModel;
   protected $fasilitasModel;
 
   public function __construct()
   {
-    $this->kostModel          = new Kost();
-    $this->gambarKostModel    = new GambarKost();
-    $this->fasilitasKostModel = new FasilitasKost();
-    $this->fasilitasModel     = new Fasilitas();
+    $this->kostModel               = new Kost();
+    $this->gambarKostModel         = new GambarKost();
+    $this->fasilitasKostModel      = new FasilitasKost();
+    $this->fasilitasModel          = new Fasilitas();
+    $this->kostDetailTambahanModel = new KostDetailTambahan();
   }
 
   private function getGambarUtama($id_kost)
@@ -69,7 +72,7 @@ class KostController extends ResourceController
   {
     $currentPage = $this->request->getVar('page_kost') ? $this->request->getVar('page_kost') : 1;
 
-    $kosts = $this->kostModel->paginate(10, 'kost');
+    $kosts = $this->kostModel->where('status', 'ready')->findAll();
 
     // Ambil gambar utama dan fasilitas untuk setiap kost
     foreach ($kosts as &$kost) {
@@ -94,25 +97,36 @@ class KostController extends ResourceController
   {
     $kost = $this->kostModel->find($id);
 
-    // Jika kost tidak ditemukan
     if (!$kost) {
       return redirect()->to('/kost')->with('error', 'Data kost tidak ditemukan');
     }
 
-    // Mengambil data gambar kost
-    $gambarKost    = $this->kostModel->getGambar($id);
-    $gambarUtama   = $this->kostModel->getGambarUtama($id);
-    // Mengambil data fasilitas kost
-    $fasilitasKost = $this->kostModel->getFasilitas($id);
-    $pemilikKost   = $this->kostModel->getKostWithOwner($id);
+    // Removed the owner verification check
+    // Now any logged-in user can view the kost details
+
+    // Ambil semua gambar kost
+    $gambar = $this->gambarKostModel->where('id_kost', $id)->findAll();
+
+    // Ambil fasilitas kost
+    $fasilitasIds = $this->fasilitasKostModel->where('id_kost', $id)->findAll();
+    $fasilitas    = [];
+
+    foreach ($fasilitasIds as $fasilitasKost) {
+      $fasilitasItem = $this->fasilitasModel->find($fasilitasKost['id_fasilitas']);
+      if ($fasilitasItem) {
+        $fasilitas[] = $fasilitasItem;
+      }
+    }
+
+    // Ambil detail tambahan
+    $detailTambahan = $this->kostDetailTambahanModel->where('kost_id', $id)->findAll();
 
     $data = [
-      'title'         => 'Detail Kost',
-      'kost'          => $kost,
-      'gambarUtama'   => $gambarUtama,
-      'gambarKost'    => $gambarKost,
-      'pemilikKost'   => $pemilikKost,
-      'fasilitasKost' => $fasilitasKost
+      'title'          => 'Detail Kost',
+      'kost'           => $kost,
+      'gambar'         => $gambar,
+      'fasilitas'      => $fasilitas,
+      'detailTambahan' => $detailTambahan
     ];
 
     return view('/partials/navbar') . view('pages/user/detailKost', $data) . view('partials/footer');
@@ -165,6 +179,9 @@ class KostController extends ResourceController
     $builder = $this->kostModel->builder();
     $builder->select('kost.*');
 
+    // Only show kosts with "ready" status
+    $builder->where('status', 'ready');
+
     // Filter by location if specified
     if (!empty($lokasi)) {
       $builder->where('lokasi', $lokasi);
@@ -172,7 +189,7 @@ class KostController extends ResourceController
 
     // Filter by kost type if specified
     if (!empty($jenis_kost)) {
-      $builder->where('jenis_kost', $jenis_kost);
+      $builder->where('jenis', $jenis_kost);
     }
 
     // Filter by price if specified
@@ -240,10 +257,10 @@ class KostController extends ResourceController
           // No kosts match the facilities, return empty result
           $data['kosts']  = [];
           $data['filter'] = [
-            'lokasi'     => $lokasi,
-            'jenis_kost' => $jenis_kost,
-            'harga'      => $harga,
-            'fasilitas'  => $fasilitas
+            'lokasi'    => $lokasi,
+            'jenis'     => $jenis_kost,
+            'harga'     => $harga,
+            'fasilitas' => $fasilitas
           ];
           return view('kost/filter_results', $data);
         }
@@ -326,6 +343,7 @@ class KostController extends ResourceController
       'kontak'         => 'required',
       'jenis'          => 'required',
       'lokasi'         => 'required',
+      'status'         => 'required',
       'foto_kost'      => 'uploaded[foto_kost.0]|max_size[foto_kost.0,2048]|mime_in[foto_kost.0,image/jpg,image/jpeg,image/png]',
       'fasilitas'      => 'required'
     ];
@@ -343,6 +361,7 @@ class KostController extends ResourceController
       'kontak'         => $this->request->getPost('kontak'),
       'jenis'          => $this->request->getPost('jenis'),
       'lokasi'         => $this->request->getPost('lokasi'),
+      'status'         => $this->request->getPost('status'),
       'deskripsi_kost' => $this->request->getPost('deskripsi_kost'),
       'created_at'     => date('Y-m-d H:i:s'),
       'updated_at'     => date('Y-m-d H:i:s')
@@ -374,6 +393,33 @@ class KostController extends ResourceController
       }
     } else {
       log_message('error', 'No facilities selected or facilities is not an array');
+    }
+
+    // Handle detail tambahan
+    $detailLabels    = $this->request->getPost('detail_label');
+    $detailDeskripsi = $this->request->getPost('detail_deskripsi');
+
+    if (is_array($detailLabels) && is_array($detailDeskripsi) && count($detailLabels) > 0) {
+      $kostDetailTambahanModel = new \App\Models\KostDetailTambahan();
+
+      for ($i = 0; $i < count($detailLabels); $i++) {
+        if (!empty($detailLabels[$i]) && !empty($detailDeskripsi[$i])) {
+          $detailData = [
+            'kost_id'    => $kostId,
+            'label'      => $detailLabels[$i],
+            'deskripsi'  => $detailDeskripsi[$i],
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+          ];
+
+          $kostDetailTambahanModel->insert($detailData);
+
+          // DEBUG: Log each detail tambahan insertion
+          log_message('debug', 'Inserting detail tambahan: ' . print_r($detailData, true));
+        }
+      }
+    } else {
+      log_message('info', 'No detail tambahan provided or not in proper format');
     }
 
     // Handle multiple file upload - improved checking
@@ -426,7 +472,7 @@ class KostController extends ResourceController
     }
 
     // Set flash message and redirect
-    session()->setFlashdata('success', 'Data kost, fasilitas, dan gambar berhasil ditambahkan');
+    session()->setFlashdata('success', 'Data kost, fasilitas, detail tambahan, dan gambar berhasil ditambahkan');
     return redirect()->to('/admin/kost');
   }
 

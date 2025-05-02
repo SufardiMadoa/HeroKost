@@ -15,6 +15,9 @@ class CreateKosts extends Migration
             'alamat_kost'    => ['type' => 'TEXT'],
             'kontak'         => ['type' => 'VARCHAR', 'constraint' => 20],
             'lokasi'         => ['type' => 'VARCHAR', 'constraint' => 255],
+            'status'         => [
+                'type' => "ENUM('ready','soldout')",
+            ],
             'jenis'          => [
                 'type' => "ENUM('Laki-laki','Perempuan','Campur')",
             ],

@@ -6,7 +6,9 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('/partials/navbar') . view('/pages/user/pemilik') . view('partials/footer');
+        $fasilitasModel    = new \App\Models\Fasilitas();
+        $data['fasilitas'] = $fasilitasModel->findAll();
+        return view('/partials/navbar') . view('/pages/owner/add', $data) . view('partials/footer');
     }
 
     public function recomendation(): string

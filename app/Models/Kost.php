@@ -14,7 +14,7 @@ class Kost extends Model
     protected $protectFields    = true;
 
     protected $allowedFields = [
-        'id_user', 'nama_kost', 'alamat_kost', 'harga_kost', 'lokasi', 'kontak', 'deskripsi_kost', 'created_at', 'updated_at'
+        'id_user', 'nama_kost', 'alamat_kost', 'harga_kost', 'lokasi', 'jenis', 'status', 'kontak', 'deskripsi_kost', 'created_at', 'updated_at'
     ];
 
     protected bool $allowEmptyInserts = false;
