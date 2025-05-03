@@ -16,20 +16,21 @@
             <div class="d-flex flex-wrap gap-2">
               <?php
               $locations = [
-                'SIGURA-GURA', 'SOEKARNO HATTA', 'MERJOSARI', 
+                'SIGURA-GURA', 'SOEKARNO HATTA', 'MERJOSARI',
                 'LANDUNGSARI', 'SUDIMIORO', 'SUMBERSARI',
                 'DIENG', 'TIDAR', 'CANDI', 'TIRTO', 'SAXOPHONE'
               ];
-              
+
               $selected_lokasi = isset($_GET['lokasi']) ? $_GET['lokasi'] : '';
-              
+
               foreach ($locations as $location) {
                 $locationId = preg_replace('/[^a-zA-Z0-9]/', '-', strtolower($location));
                 echo '<div class="form-check">';
-                echo '<input class="btn-check" type="radio" name="lokasi" id="lokasi-'.$locationId.'" value="'.$location.'"';
-                if ($selected_lokasi == $location) echo ' checked';
+                echo '<input class="btn-check" type="radio" name="lokasi" id="lokasi-' . $locationId . '" value="' . $location . '"';
+                if ($selected_lokasi == $location)
+                  echo ' checked';
                 echo '>';
-                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="lokasi-'.$locationId.'">'.$location.'</label>';
+                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="lokasi-' . $locationId . '">' . $location . '</label>';
                 echo '</div>';
               }
               ?>
@@ -41,17 +42,18 @@
             <h5 class="mb-3">Jenis Kost</h5>
             <div class="d-flex gap-2">
               <?php
-              $kostTypes = ['PUTRA', 'PUTRI'];
-              
-              $selected_jenis = isset($_GET['jenis_kost']) ? $_GET['jenis_kost'] : '';
-              
+              $kostTypes = ['PUTRA', 'PUTRI', 'CAMPUR'];
+
+              $selected_jenis = isset($_GET['jenis']) ? $_GET['jenis'] : '';
+
               foreach ($kostTypes as $type) {
                 $typeId = strtolower($type);
                 echo '<div class="form-check">';
-                echo '<input class="btn-check" type="radio" name="jenis_kost" id="jenis-'.$typeId.'" value="'.$type.'"';
-                if ($selected_jenis == $type) echo ' checked';
+                echo '<input class="btn-check" type="radio" name="jenis_kost" id="jenis-' . $typeId . '" value="' . $type . '"';
+                if ($selected_jenis == $type)
+                  echo ' checked';
                 echo '>';
-                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="jenis-'.$typeId.'">'.$type.'</label>';
+                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="jenis-' . $typeId . '">' . $type . '</label>';
                 echo '</div>';
               }
               ?>
@@ -63,20 +65,20 @@
             <h5 class="mb-3">Harga</h5>
             <div class="d-flex flex-wrap gap-2">
             <?php
-$prices = [
-    '<Rp. 500.000,-', '<Rp. 750.000,-', 
-    '<Rp. 1.000.000,-', '<Rp. 1.250.000,-'
-];
+            $prices = [
+              '<Rp. 500.000,-', '<Rp. 750.000,-',
+              '<Rp. 1.000.000,-', '<Rp. 1.250.000,-'
+            ];
 
-foreach ($prices as $price) {
-    $priceId = str_replace(['<', '.', ' ', 'Rp', ',-'], '', $price);
-    $priceId = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $priceId));
-    echo '<div class="form-check">';
-    echo '<input class="btn-check" type="radio" name="harga" id="harga-'.$priceId.'" value="'.htmlspecialchars($price).'">';
-    echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="harga-'.$priceId.'">'.htmlspecialchars($price).'</label>';
-    echo '</div>';
-}
-?>
+            foreach ($prices as $price) {
+              $priceId = str_replace(['<', '.', ' ', 'Rp', ',-'], '', $price);
+              $priceId = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $priceId));
+              echo '<div class="form-check">';
+              echo '<input class="btn-check" type="radio" name="harga" id="harga-' . $priceId . '" value="' . htmlspecialchars($price) . '">';
+              echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="harga-' . $priceId . '">' . htmlspecialchars($price) . '</label>';
+              echo '</div>';
+            }
+            ?>
             </div>
           </div>
           
@@ -89,16 +91,16 @@ foreach ($prices as $price) {
                 'KM Dalam', 'KM Luar', 'Parkiran', 'Dapur', 'Kulkas',
                 'Jemuran', 'Mesin Cuci', 'AC', '24 jam', 'Water Heater', 'Ruang Tamu'
               ];
-              
+
               $selected_fasilitas = isset($_GET['fasilitas']) ? $_GET['fasilitas'] : [];
-              
+
               foreach ($facilities as $facility) {
                 $facilityId = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($facility));
-                $checked = is_array($selected_fasilitas) && in_array($facility, $selected_fasilitas) ? ' checked' : '';
-                
+                $checked    = is_array($selected_fasilitas) && in_array($facility, $selected_fasilitas) ? ' checked' : '';
+
                 echo '<div class="form-check">';
-                echo '<input class="btn-check" type="checkbox" name="fasilitas[]" id="fasilitas-'.$facilityId.'" value="'.$facility.'"'.$checked.'>';
-                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="fasilitas-'.$facilityId.'">'.$facility.'</label>';
+                echo '<input class="btn-check" type="checkbox" name="fasilitas[]" id="fasilitas-' . $facilityId . '" value="' . $facility . '"' . $checked . '>';
+                echo '<label class="btn btn-outline-dark rounded-pill px-3 py-2" for="fasilitas-' . $facilityId . '">' . $facility . '</label>';
                 echo '</div>';
               }
               ?>

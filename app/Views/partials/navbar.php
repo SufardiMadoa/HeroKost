@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
+
 <nav style="z-index: auto; z-index: 200;" class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 start-0 end-0 shadow-sm ">
   <div class="container ">
     <a class="navbar-brand" href="#">
@@ -91,6 +93,9 @@
               <li><hr class="dropdown-divider"></li>
               <?php endif; ?>
               <li>
+                <a class="dropdown-item" href="<?= site_url('riwayat-pembayaran') ?>">Riwayat</a>
+              </li>
+              <li>
                 <a class="dropdown-item" href="<?= site_url('logout') ?>">Logout</a>
               </li>
             </ul>
@@ -102,4 +107,3 @@
     <?php endif; ?>
   </div>
 </nav>
-<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>

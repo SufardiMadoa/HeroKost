@@ -14,6 +14,13 @@ $routes->get('/kost/filter', 'KostController::filter');
 $routes->get('/profile', 'ProfileController::viewProfile');
 $routes->get('/pemilik', 'Home::index', ['filter' => 'auth:pemilik']);
 $routes->get('/pemilik/kost', 'KostOwnerController::showAll', ['filter' => 'auth:pemilik']);
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+  $routes->get('/riwayat-pembayaran', 'RiwayatPembayaranController::index');
+  $routes->get('/riwayat-pembayaran/detail/(:num)', 'RiwayatPembayaranController::detail/$1');
+  $routes->get('/riwayat-pembayaran/batalkan/(:num)', 'RiwayatPembayaranController::batalkan/$1');
+  $routes->match(['get', 'post'], '/riwayat-pembayaran/update-bukti/(:num)', 'RiwayatPembayaranController::updateBukti/$1');
+});
+
 $routes->get('/pemilik/kost/detail/(:num)', 'KostOwnerController::show/$1', ['filter' => 'auth:pemilik']);
 $routes->get('pemilik/kost/edit/(:num)', 'KostOwnerController::editKostOwner/$1');
 $routes->post('pemilik/kost/update/(:num)', 'KostOwnerController::updateKostOwner/$1');

@@ -6,6 +6,7 @@
     <title>Document</title>
     
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body{
             padding-top: 80px;
@@ -37,7 +38,9 @@
     <main class="container mt-5">
     <?= $this->renderSection('content') ?>
     </main>
-    <?= view('partials/footer') ?>
     <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
+    
+    <?= view('partials/footer') ?>
+
 </body>
 </html>

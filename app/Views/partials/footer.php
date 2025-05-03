@@ -1,11 +1,9 @@
-<footer style="background-color:#12273B;" class=" text-light py-5 ">
+<footer style="background-color:#12273B; margin-top: 60px;" class=" text-light py-5 " >
   <div class="container">
     <div class="d-flex justify-content-between">
       <!-- Logo dan Deskripsi -->
       <div class="col-md-6 mb-4">
-        <div class="d-flex align-items-center mb-3">
-          <img src="<?= base_url('images/logo.png') ?>" alt="Logo" class="me-2">
-        </div>
+        <h1>HeroKost</h1>
         <p class="small">
           Hero Kost adalah platform rekomendasi kost terbaik di Malang yang membantu kamu menemukan hunian nyaman, strategis, dan sesuai budget dengan mudah.
         </p>

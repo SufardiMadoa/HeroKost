@@ -1,6 +1,11 @@
 <!-- Detail Kost View - With Detail Tambahan -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
 
 <style>
   :root {
@@ -321,6 +326,64 @@
     display: inline-block;
   }
 
+  /* Image preview styles */
+  .image-preview-container {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border: 1px dashed #dee2e6;
+    position: relative;
+    display: none;
+  }
+
+  .image-preview {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .image-preview-placeholder {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #6c757d;
+  }
+
+  .image-preview-placeholder i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  .remove-preview {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #dc3545;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .remove-preview:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+  }
+
   @media (max-width: 991.98px) {
     .mt-auto.text-end {
       text-align: start !important;
@@ -414,11 +477,7 @@
                     <p class="mb-4"><?= $kost['deskripsi_kost'] ?></p>
                     
                     <!-- Contact Button -->
-                    <?php $admin_phone = isset($kost['no_hp']) ? $kost['no_hp'] : '6281234567890'; ?>
-                    <a href="https://wa.me/<?= $admin_phone ?>" class="contact-btn w-100 mb-4">
-                        <i class="fab fa-whatsapp"></i> 
-                        Hubungi Pemilik
-                    </a>
+                    
                 </div>
                 
                 <!-- Facilities -->
@@ -547,7 +606,11 @@
             <p><strong>CP:</strong> <?= isset($kost['kontak']) ? substr($kost['kontak'], 0, 4) . str_repeat('*', 6) : 'Tersedia'; ?></p>
             <p><strong>Alamat:</strong> <?= preg_replace('/(?<=\bJl\.\s\w{3})\w+/', '***', $kost['alamat_kost']); ?></p>
             <p><strong>Harga:</strong> Rp <?= number_format($kost['harga_kost'], 0, ',', '.'); ?></p>
-            <p class="mb-3"><strong>Pemilik:</strong> <?= isset($kost['nama_pemilik']) ? $kost['nama_pemilik'] : 'Pemilik Kost' ?></p>
+            <p class="mb-3"><strong>Pemilik:</strong> <?= isset($kost['nama_pemilik'])
+  ? (strlen($kost['nama_pemilik']) > 3
+    ? substr($kost['nama_pemilik'], 0, 2) . str_repeat('*', strlen($kost['nama_pemilik']) - 3) . substr($kost['nama_pemilik'], -1)
+    : $kost['nama_pemilik'])
+  : 'Pemilik Kost'; ?></p>
           </div>
           
           <form method="POST" action="<?= base_url('/pembayaran') ?>" enctype="multipart/form-data">
@@ -559,9 +622,17 @@
             <div class="mb-3">
               <label for="bukti_pembayaran" class="form-label fw-semibold">Bukti Pembayaran</label>
               <div class="custom-input-group">
-                <input type="file" class="custom-input form-control" id="bukti_pembayaran" name="bukti_pembayaran" onchange="updateFileName()" required>
+                <input type="file" class="custom-input form-control" id="bukti_pembayaran" name="bukti_pembayaran" onchange="previewImage(this)" accept="image/*" required>
               </div>
               <small id="fileNamePreview" class="form-text text-muted mt-1">Belum ada file dipilih</small>
+              
+              <!-- Image Preview Container -->
+              <div id="imagePreviewContainer" class="image-preview-container">
+                <img id="imagePreview" class="image-preview" src="#" alt="Preview">
+                <button type="button" class="remove-preview" onclick="removeImagePreview()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
             </div>
             
             <button type="submit" class="btn custom-button w-100">Kirim Bukti Pembayaran</button>
@@ -573,11 +644,48 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 <script>
+
+// Function to display file name
 function updateFileName() {
   const input = document.getElementById('bukti_pembayaran');
   const preview = document.getElementById('fileNamePreview');
   preview.textContent = input.files[0] ? input.files[0].name : 'Belum ada file dipilih';
+}
+
+// Function to preview image
+function previewImage(input) {
+  // Update file name
+  updateFileName();
+  
+  const previewContainer = document.getElementById('imagePreviewContainer');
+  const preview = document.getElementById('imagePreview');
+  
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      previewContainer.style.display = 'block';
+    }
+    
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// Function to remove image preview
+function removeImagePreview() {
+  const input = document.getElementById('bukti_pembayaran');
+  const previewContainer = document.getElementById('imagePreviewContainer');
+  const preview = document.getElementById('imagePreview');
+  const fileNamePreview = document.getElementById('fileNamePreview');
+  
+  // Clear the file input
+  input.value = '';
+  preview.src = '#';
+  previewContainer.style.display = 'none';
+  fileNamePreview.textContent = 'Belum ada file dipilih';
 }
 
 document.addEventListener('DOMContentLoaded', function () {

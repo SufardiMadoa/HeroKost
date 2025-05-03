@@ -19,7 +19,7 @@ class CreateKosts extends Migration
                 'type' => "ENUM('ready','soldout')",
             ],
             'jenis'          => [
-                'type' => "ENUM('Laki-laki','Perempuan','Campur')",
+                'type' => "ENUM('Putra','Putri','Campur')",
             ],
             'harga_kost'     => ['type' => 'DECIMAL', 'constraint' => '10,2'],
             'deskripsi_kost' => ['type' => 'TEXT', 'null' => true],

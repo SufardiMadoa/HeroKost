@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HeroKost - Kost Rekomendasi Malang</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.min.css">
-  
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<!------ Include the above in your HEAD tag ---------->
   <style>
     :root {
       --primary-color: #00A19D;
@@ -259,6 +251,8 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
+
+    
     
     @keyframes spin {
       0% { transform: rotate(0deg); }
@@ -309,8 +303,7 @@
       }
     }
   </style>
-</head>
-<body>
+
 
 <!-- Hero Section -->
 <section class="hero-section d-flex align-items-center justify-content-center text-center">
@@ -351,7 +344,7 @@
           <div class="card h-100">
             <!-- Badges for kost type and availability -->
             <span class="badge-kost-type">
-              <?= $kost['jenis'] == '' ? 'Kost Putra' : ($kost['jenis'] == 'putri' ? 'Kost Putri' : 'Kost Campur') ?>
+              <?= $kost['jenis'] == 'Putra' ? 'Kost Putra' : ($kost['jenis'] == 'Putri' ? 'Kost Putri' : 'Kost Campur') ?>
             </span>
           
             
@@ -371,7 +364,15 @@
             <div class="card-body">
               <h5 class="card-title"><?= $kost['nama_kost']; ?></h5>
               
-              <!-- Location -->
+              <!-- Location Badge - ADDED HERE -->
+              <div class="location-badge mb-2">
+                <span class="badge bg-light text-dark">
+                  <i class="fas fa-map-marker-alt me-1 text-primary"></i>
+                  <?= $kost['lokasi']; ?>
+                </span>
+              </div>
+              
+              <!-- Address -->
               <p class="text-muted mb-3">
                 <i class="fas fa-map-marker-alt me-2 text-primary"></i>
                 <?= $kost['alamat_kost']; ?>
@@ -522,6 +523,8 @@
 </div>
 
 <!-- Scripts -->
+<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.7/swiper-bundle.min.js"></script>
 <script>
@@ -545,6 +548,3 @@
     });
   });
 </script>
-
-</body>
-</html>

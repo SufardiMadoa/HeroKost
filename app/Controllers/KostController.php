@@ -65,7 +65,7 @@ class KostController extends ResourceController
       'kosts' => $kosts
     ];
 
-    return view('/partials/navbar') . view('pages/user/beranda', $data) . view('partials/footer');
+    return view('partials/navbar') . view('pages/user/beranda', $data) . view('partials/footer');
   }
 
   public function listAll()
@@ -87,7 +87,7 @@ class KostController extends ResourceController
       'currentPage' => $currentPage
     ];
 
-    return view('/partials/navbar') . view('pages/user/rekomendasi', $data) . view('partials/footer');
+    return view('partials/navbar') . view('pages/user/rekomendasi', $data) . view('partials/footer');
   }
 
   /**

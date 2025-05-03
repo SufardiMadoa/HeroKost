@@ -1,15 +1,14 @@
-
-<?= $this->extend('layout/main'); ?>
-
-<?= $this->section('content'); ?>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <style>
         :root {
-            --primary-color: #4e73df;
+            --primary-color: #343a40;
             --secondary-color: #f8f9fc;
-            --accent-color: #4e73df;
+            --accent-color: #212529;
+            --dark-text: #212529;
+            --light-text: #f8f9fc;
+            --border-color: #495057;
         }
         body {
             background-color: #f8f9fc;
@@ -26,11 +25,11 @@
             border-color: var(--primary-color);
         }
         .btn-primary:hover {
-            background-color: #2e59d9;
-            border-color: #2e59d9;
+            background-color: #1d2124;
+            border-color: #1d2124;
         }
         .page-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #224abe 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #212529 100%);
             color: white;
             padding: 2rem 0;
             border-radius: 10px;
@@ -38,7 +37,7 @@
         }
         .form-control:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.25);
         }
         .section-title {
             position: relative;
@@ -60,7 +59,7 @@
             background-color: var(--primary-color);
         }
         .nav-pills .nav-link {
-            color: #4e73df;
+            color: var(--primary-color);
             font-weight: 600;
         }
         .form-check-input:checked {
@@ -97,7 +96,7 @@
             background-color: rgba(220, 53, 69, 1);
         }
         .detail-row {
-            background-color: rgba(78, 115, 223, 0.05);
+            background-color: rgba(33, 37, 41, 0.05);
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
@@ -124,21 +123,32 @@
         .facility-checkbox label {
             padding: 10px 15px;
             border-radius: 10px;
-            background-color: rgba(78, 115, 223, 0.05);
+            background-color: rgba(33, 37, 41, 0.05);
             transition: all 0.3s;
             cursor: pointer;
             border: 1px solid transparent;
         }
         .facility-checkbox input:checked + label {
-            background-color: rgba(78, 115, 223, 0.2);
+            background-color: rgba(33, 37, 41, 0.2);
             border-color: var(--primary-color);
+        }
+        .text-primary {
+            color: #343a40 !important;
+        }
+        .btn-outline-secondary {
+            color: #343a40;
+            border-color: #343a40;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #343a40;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="container my-5">
+    <div class="container " style="padding-top: 80px;">
         <!-- Page Header -->
-        <div class="page-header text-center text-md-start mb-4">
+        <div class="page-header text-center text-md-start mb-4" style="padding: 40px 40px;">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-8">
@@ -368,6 +378,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
     
     <script>
         $(document).ready(function() {
@@ -435,4 +446,3 @@
             });
         });
     </script>
-<?= $this->endSection(); ?>

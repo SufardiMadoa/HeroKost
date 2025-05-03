@@ -1,10 +1,6 @@
-<?= $this->extend('layout/main'); ?>
 
-<?= $this->section('content'); ?>
     <!-- Font Awesome & Other CDN Links -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
@@ -20,7 +16,6 @@
             --transition: all 0.3s ease;
             --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 15px 25px rgba(0, 0, 0, 0.1);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 24px;
@@ -31,7 +26,6 @@
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
-            position: relative;
         }
         
         .floating-action-btn {
@@ -46,14 +40,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--shadow-lg);
-            transition: var(--transition);
+            box-shadow: var(--shadow-md);
             text-decoration: none;
-        }
-        
-        .floating-action-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
         }
         
         .floating-action-btn i {
@@ -68,30 +56,6 @@
             border-radius: var(--radius-lg);
             margin-bottom: 2rem;
             box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .property-header::before {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            top: -100px;
-            right: -50px;
-        }
-        
-        .property-header::after {
-            content: '';
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            bottom: -70px;
-            left: 10%;
         }
         
         .property-title {
@@ -106,21 +70,14 @@
             background: rgba(255, 255, 255, 0.1);
             padding: 8px 15px;
             border-radius: 30px;
-            backdrop-filter: blur(5px);
         }
         
         .btn-modern {
             border-radius: 50px;
             padding: 10px 25px;
             font-weight: 600;
-            transition: var(--transition);
             box-shadow: var(--shadow-sm);
             border: none;
-        }
-        
-        .btn-modern:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
         }
         
         .btn-modern-primary {
@@ -154,7 +111,6 @@
             height: 450px;
             width: 100%;
             object-fit: cover;
-            transition: var(--transition);
         }
         
         .gallery-controls {
@@ -175,12 +131,6 @@
             justify-content: center;
             border: none;
             cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .gallery-control-btn:hover {
-            background: white;
-            transform: scale(1.1);
         }
         
         .thumbnail-gallery {
@@ -212,8 +162,6 @@
             border-radius: var(--radius-sm);
             object-fit: cover;
             cursor: pointer;
-            transition: var(--transition);
-            flex-shrink: 0;
             opacity: 0.7;
             border: 2px solid transparent;
         }
@@ -221,21 +169,14 @@
         .thumbnail:hover, .thumbnail.active {
             opacity: 1;
             border-color: var(--accent-color);
-            transform: scale(1.05);
         }
         
         .card-modern {
             border: none;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-md);
-            transition: var(--transition);
             overflow: hidden;
             margin-bottom: 25px;
-        }
-        
-        .card-modern:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
         }
         
         .card-header-modern {
@@ -303,7 +244,6 @@
             padding: 12px;
             border-radius: var(--radius-md);
             font-weight: 600;
-            transition: var(--transition);
             border: none;
             margin-bottom: 15px;
             display: flex;
@@ -322,29 +262,6 @@
             color: white;
         }
         
-        .contact-button {
-            width: 100%;
-            padding: 14px;
-            border-radius: var(--radius-md);
-            background: var(--accent-color);
-            color: white;
-            font-weight: 600;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-        
-        .contact-button:hover {
-            background: #0097a7;
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        
         .nav-pills-modern {
             border-radius: var(--radius-md);
             overflow: hidden;
@@ -359,7 +276,6 @@
             padding: 10px 20px;
             font-weight: 600;
             color: var(--secondary-color);
-            transition: var(--transition);
             margin: 0 5px;
             display: flex;
             align-items: center;
@@ -400,13 +316,7 @@
             border-radius: var(--radius-md);
             padding: 20px;
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
             margin-bottom: 15px;
-        }
-        
-        .info-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-3px);
         }
         
         .info-card-icon {
@@ -430,12 +340,6 @@
             border-radius: var(--radius-sm);
             margin-bottom: 10px;
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-        
-        .facility-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-md);
         }
         
         .facility-icon {
@@ -456,14 +360,8 @@
             border-radius: var(--radius-md);
             padding: 15px;
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
             margin-bottom: 15px;
             border-left: 3px solid var(--accent-color);
-        }
-        
-        .detail-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateX(5px);
         }
         
         .detail-title {
@@ -493,27 +391,10 @@
             justify-content: center;
             border: none;
             opacity: 0;
-            transition: var(--transition);
         }
         
         .gallery-thumbnail-wrapper:hover .delete-image-btn {
             opacity: 1;
-        }
-        
-        .pulse-anim {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
         }
         
         @media (max-width: 768px) {
@@ -533,12 +414,9 @@
             }
         }
     </style>
-
-   
-
-    <div class="container my-5">
+    <div class="container" style="padding-top: 80px;">
         <!-- Property Header -->
-        <div class="property-header animate__animated animate__fadeIn" data-aos="fade-up">
+        <div class="property-header" style="padding-left: 40px; padding-right: 40px;">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-8 col-md-7">
@@ -563,7 +441,7 @@
         <!-- Main Content -->
         <div class="row">
             <!-- Left Column: Photo Gallery & Details -->
-            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-8">
                 <!-- Image Gallery -->
                 <div class="image-gallery mb-4">
                     <?php if (empty($gambar)): ?>
@@ -611,7 +489,7 @@
                 </div>
 
                 <!-- Tabs for Details -->
-                <div class="card-modern" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-modern">
                     <div class="card-body-modern">
                         <ul class="nav nav-pills-modern" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -698,7 +576,7 @@
                                 <?php else: ?>
                                     <div class="row">
                                         <?php foreach ($fasilitas as $index => $f): ?>
-                                            <div class="col-md-6" data-aos="fade-right" data-aos-delay="<?= $index * 50; ?>">
+                                            <div class="col-md-6">
                                                 <div class="facility-item">
                                                     <div class="facility-icon">
                                                         <i class="fas fa-check"></i>
@@ -721,7 +599,7 @@
                                 <?php else: ?>
                                     <div class="row">
                                         <?php foreach ($detailTambahan as $index => $detail): ?>
-                                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="<?= $index * 50; ?>">
+                                            <div class="col-md-6">
                                                 <div class="detail-card">
                                                     <h6 class="detail-title"><?= $detail['label']; ?></h6>
                                                     <p class="mb-0"><?= $detail['deskripsi']; ?></p>
@@ -737,9 +615,9 @@
             </div>
 
             <!-- Right Column: Summary and Actions -->
-            <div class="col-lg-4" data-aos="fade-left" data-aos-delay="300">
+            <div class="col-lg-4">
                 <!-- Price and Status Card -->
-                <div class="card-modern sticky-top" style="top: 20px;">
+                <div class="card-modern " style="top: 20px;">
                     <div class="card-header-modern">
                         <i class="fas fa-home me-2"></i> Informasi Kamar
                     </div>
@@ -757,7 +635,7 @@
                             <div class="fs-6">per bulan</div>
                         </div>
                         
-                        <div class="status-badge-modern <?= $kost['status'] == 'ready' ? 'status-available' : 'status-occupied'; ?> <?= $kost['status'] == 'ready' ? 'pulse-anim' : ''; ?>">
+                        <div class="status-badge-modern <?= $kost['status'] == 'ready' ? 'status-available' : 'status-occupied'; ?>">
                             <i class="fas <?= $kost['status'] == 'ready' ? 'fa-check-circle' : 'fa-times-circle'; ?> me-2"></i>
                             <?= $kost['status'] == 'ready' ? 'Tersedia' : 'Sudah Terisi'; ?>
                         </div>
@@ -769,8 +647,6 @@
                             <i class="fas <?= $kost['status'] == 'ready' ? 'fa-user-slash' : 'fa-user-check'; ?>"></i>
                             <?= $kost['status'] == 'ready' ? 'Tandai Sudah Terisi' : 'Tandai Tersedia'; ?>
                         </button>
-                        
-                       
                         
                         <!-- Quick Info List -->
                         <div class="mt-4">
@@ -806,18 +682,18 @@
                                         <div class="fw-semibold">
                                         <?php
                                         if (!empty($fasilitas)) {
-                                          $fasilitasShown = array_slice($fasilitas, 0, 3);
-                                          foreach ($fasilitasShown as $index => $f) {
-                                            echo $f['nama_fasilitas'];
-                                            if ($index < count($fasilitasShown) - 1) {
-                                              echo ', ';
+                                            $fasilitasShown = array_slice($fasilitas, 0, 3);
+                                            foreach ($fasilitasShown as $index => $f) {
+                                                echo $f['nama_fasilitas'];
+                                                if ($index < count($fasilitasShown) - 1) {
+                                                    echo ', ';
+                                                }
                                             }
-                                          }
-                                          if (count($fasilitas) > 3) {
-                                            echo ' <span class="badge rounded-pill text-bg-primary">' . (count($fasilitas) - 3) . '+</span>';
-                                          }
+                                            if (count($fasilitas) > 3) {
+                                                echo ' <span class="badge rounded-pill text-bg-primary">' . (count($fasilitas) - 3) . '+</span>';
+                                            }
                                         } else {
-                                          echo '<span class="text-muted">Tidak ada data</span>';
+                                            echo '<span class="text-muted">Tidak ada data</span>';
                                         }
                                         ?>
                                         </div>
@@ -827,12 +703,8 @@
                         </div>
                     </div>
                 </div>
-                
-              
             </div>
         </div>
-        
-       
     </div>
 
     <!-- Delete Confirmation Modal -->
@@ -878,6 +750,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- AOS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
     
     <script>
         $(document).ready(function() {
@@ -997,4 +870,3 @@
             $('body').append(addImageBtn);
         });
     </script>
-<?= $this->endSection(); ?>

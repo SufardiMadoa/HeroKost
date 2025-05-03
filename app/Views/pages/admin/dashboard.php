@@ -36,8 +36,9 @@
         .table-container {
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 30px;
         }
         .search-container {
             position: relative;
@@ -56,10 +57,137 @@
         .table-responsive {
             overflow-x: auto;
         }
-        .table th {
-            background-color: #1a3253;
+        
+        /* Enhanced DataTable Styling */
+        #example {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #example thead th {
+            background: linear-gradient(135deg, #1a3253, #2a4a70);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 15px 10px;
+            border: none;
+            position: relative;
+        }
+        
+        #example tbody tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        #example tbody tr:hover {
+            background-color: #f8f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        #example tbody td {
+            padding: 12px 10px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+            color: #444;
+            border: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .badge {
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .bg-success {
+            background-color: #28a745 !important;
             color: white;
         }
+        
+        .btn-group .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 0.2rem;
+            margin-right: 5px;
+        }
+        
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+        
+        .btn-hapus {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 0.2rem;
+            cursor: pointer;
+        }
+        
+        /* DataTables specific styling */
+        .dataTables_wrapper .dataTables_length, 
+        .dataTables_wrapper .dataTables_filter {
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        
+        .dataTables_wrapper .dataTables_length select, 
+        .dataTables_wrapper .dataTables_filter input {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 6px 10px;
+            background-color: #f8f9fa;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: 0;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border-radius: 5px;
+            margin: 0 3px;
+            padding: 5px 12px;
+            border: 1px solid #dee2e6;
+            background-color: #fff;
+            color: #495057;
+            transition: all 0.2s;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+            color: #495057 !important;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current, 
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            background: linear-gradient(135deg, #1a3253, #2a4a70);
+            border-color: #1a3253;
+            color: white !important;
+        }
+        
+        .dataTables_wrapper .dataTables_info {
+            color: #6c757d;
+            font-size: 0.875rem;
+            padding-top: 0.85em;
+        }
+        
+        /* General styling */
         * {
             margin: 0;
             padding: 0;
@@ -213,7 +341,7 @@
             <div class="col-md-12">
                 <div class="table-container">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h4>Kelola Daftar Kost</h4>
+                        <h4><i class="fas fa-list-alt me-2"></i>Kelola Daftar Kost</h4>
                         <!-- <div class="search-container">
                             <input type="text" class="form-control" placeholder="Cari ID Kost" style="padding-right: 50px;">
                             <button class="btn btn-dark" style="height: 100%; width: 50pxP;">
@@ -292,7 +420,26 @@
 <script src="https://cdn.datatables.net/2.3.0/js/dataTables.js"></script>
 
 <script>
-new DataTable('#example');
+new DataTable('#example', {
+    language: {
+        search: "<i class='fas fa-search'></i> Cari:",
+        lengthMenu: "Tampilkan _MENU_ data per halaman",
+        zeroRecords: "Tidak ada data yang ditemukan",
+        info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+        infoEmpty: "Tidak ada data yang tersedia",
+        infoFiltered: "(difilter dari _MAX_ total data)",
+        paginate: {
+            first: "<i class='fas fa-angle-double-left'></i>",
+            last: "<i class='fas fa-angle-double-right'></i>",
+            next: "<i class='fas fa-angle-right'></i>",
+            previous: "<i class='fas fa-angle-left'></i>"
+        }
+    },
+    responsive: true,
+    columnDefs: [
+        { className: "align-middle", targets: "_all" }
+    ]
+});
 </script>
 
 <?= $this->endSection(); ?>

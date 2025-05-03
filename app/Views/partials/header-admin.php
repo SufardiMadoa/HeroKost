@@ -174,12 +174,7 @@
               class="dropdown-menu dropdown-menu-end"
               aria-labelledby="navbarDropdownMenuAvatar"
             >
-              <li>
-                <a class="dropdown-item" href="<?= site_url('profile') ?>">Profil Saya</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="<?= site_url('settings') ?>">Pengaturan</a>
-              </li>
+              
               <li><hr class="dropdown-divider"></li>
               <li>
                 <a class="dropdown-item" href="<?= site_url('logout') ?>">Logout</a>

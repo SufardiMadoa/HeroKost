@@ -1,4 +1,6 @@
 <!-- Hero Section -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
 <section class="hero-section d-flex align-items-center justify-content-center text-center" style="height: 500px; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('<?= base_url('image/beranda.jpg') ?>'); background-size: cover; background-position: center; background-attachment: fixed;">
   <div class="container text-white">
     <h1 class="display-4 fw-bold mb-3">
@@ -77,19 +79,19 @@
                                             <div class="col-lg-9">
                                                 <div class="row">
                                                     <div class="col-md-4 mb-2 mb-md-0">
-                                                        <input type="radio" class="btn-check" name="jenis" id="jenisPutra" value="putra" <?= old('jenis') == 'putra' ? 'checked' : '' ?> required>
+                                                        <input type="radio" class="btn-check" name="jenis" id="jenisPutra" value="Putra" <?= old('jenis') == 'putra' ? 'checked' : '' ?> required>
                                                         <label class="btn btn-outline-primary w-100" for="jenisPutra">
                                                             <i class="bi bi-gender-male me-2"></i>Putra
                                                         </label>
                                                     </div>
                                                     <div class="col-md-4 mb-2 mb-md-0">
-                                                        <input type="radio" class="btn-check" name="jenis" id="jenisPutri" value="putri" <?= old('jenis') == 'putri' ? 'checked' : '' ?>>
+                                                        <input type="radio" class="btn-check" name="jenis" id="jenisPutri" value="Putri" <?= old('jenis') == 'putri' ? 'checked' : '' ?>>
                                                         <label class="btn btn-outline-primary w-100" for="jenisPutri">
                                                             <i class="bi bi-gender-female me-2"></i>Putri
                                                         </label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input type="radio" class="btn-check" name="jenis" id="jenisCampur" value="campur" <?= old('jenis') == 'campur' ? 'checked' : '' ?>>
+                                                        <input type="radio" class="btn-check" name="jenis" id="jenisCampur" value="Campur" <?= old('jenis') == 'campur' ? 'checked' : '' ?>>
                                                         <label class="btn btn-outline-primary w-100" for="jenisCampur">
                                                             <i class="bi bi-people me-2"></i>Campur
                                                         </label>
@@ -266,7 +268,7 @@
                                         <div class="row mb-0">
                                             <label class="col-lg-3 col-form-label fw-semibold">Foto Kost <span class="text-danger">*</span></label>
                                             <div class="col-lg-9">
-                                                <div class="upload-box bg-white rounded-3 p-4 mb-3 text-center border dashed-border position-relative">
+                                                <div class="upload-box bg-white rounded-3 p-4 mb-3 text-center border dashed-border position-relative" >
                                                     <div class="upload-icon mb-3">
                                                         <i class="bi bi-cloud-arrow-up-fill text-primary" style="font-size: 3rem;"></i>
                                                     </div>
@@ -312,175 +314,250 @@
 </div>
 
 <style>
-    .dashed-border {
-        border-style: dashed !important;
-        border-width: 2px !important;
-        transition: all 0.3s ease;
-    }
-    
-    .dashed-border:hover {
-        border-color: #0d6efd !important;
-        background-color: rgba(13, 110, 253, 0.05) !important;
-    }
-    
-    .custom-checkbox:hover {
-        background-color: rgba(13, 110, 253, 0.05);
-        transition: all 0.2s ease;
-    }
-    
-    .custom-checkbox input:checked + label {
-        font-weight: 600;
-    }
-    
-    .form-control:focus, .form-select:focus, .btn-check:focus + .btn-outline-primary {
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    }
+   .dashed-border {
+    border-style: dashed !important;
+    border-width: 2px !important;
+    transition: all 0.3s ease;
+}
+
+.dashed-border:hover {
+    border-color: #0d6efd !important;
+    background-color: rgba(13, 110, 253, 0.05) !important;
+}
+
+.custom-checkbox:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox input:checked + label {
+    font-weight: 600;
+}
+
+.form-control:focus, .form-select:focus, .btn-check:focus + .btn-outline-primary {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* New styles for the image preview */
+.preview-scroll-container {
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #6c757d #f8f9fa;
+    border-radius: 0.375rem;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+    padding: 10px;
+}
+
+.preview-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.preview-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 3px;
+}
+
+.preview-scroll-container::-webkit-scrollbar-track {
+    background-color: #f8f9fa;
+}
+
+.image-preview-card {
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.image-preview-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
+
+.preview-section {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+/* Fix for the upload section */
+.upload-box {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 </style>
+
 
 <script>
     // Display preview of selected images with enhanced preview
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle file upload preview
-        const inputFoto = document.getElementById('foto_kost');
-        const previewContainer = document.getElementById('preview-container');
-        const uploadBox = inputFoto.closest('.upload-box');
+    // Handle file upload preview
+document.addEventListener('DOMContentLoaded', function() {
+    const inputFoto = document.getElementById('foto_kost');
+    const previewContainer = document.getElementById('preview-container');
+    const uploadBox = inputFoto.closest('.upload-box');
+    
+    // Add drag and drop functionality
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadBox.addEventListener(eventName, unhighlight, false);
+    });
+    
+    function highlight() {
+        uploadBox.classList.add('border-primary');
+        uploadBox.style.backgroundColor = 'rgba(13, 110, 253, 0.05)';
+    }
+    
+    function unhighlight() {
+        uploadBox.classList.remove('border-primary');
+        uploadBox.style.backgroundColor = '';
+    }
+    
+    uploadBox.addEventListener('drop', handleDrop, false);
+    
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        inputFoto.files = files;
         
-        // Add drag and drop functionality
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            uploadBox.addEventListener(eventName, preventDefaults, false);
-        });
+        // Trigger change event
+        const event = new Event('change');
+        inputFoto.dispatchEvent(event);
+    }
+    
+    inputFoto.addEventListener('change', function() {
+        // Clear previous previews
+        previewContainer.innerHTML = '';
         
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        
-        ['dragenter', 'dragover'].forEach(eventName => {
-            uploadBox.addEventListener(eventName, highlight, false);
-        });
-        
-        ['dragleave', 'drop'].forEach(eventName => {
-            uploadBox.addEventListener(eventName, unhighlight, false);
-        });
-        
-        function highlight() {
-            uploadBox.classList.add('border-primary');
-            uploadBox.style.backgroundColor = 'rgba(13, 110, 253, 0.05)';
-        }
-        
-        function unhighlight() {
-            uploadBox.classList.remove('border-primary');
-            uploadBox.style.backgroundColor = '';
-        }
-        
-        uploadBox.addEventListener('drop', handleDrop, false);
-        
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            inputFoto.files = files;
+        if (this.files && this.files.length > 0) {
+            // Create a preview section with fixed height and scrollable content
+            const previewSection = document.createElement('div');
+            previewSection.className = 'preview-section mb-4';
             
-            // Trigger change event
-            const event = new Event('change');
-            inputFoto.dispatchEvent(event);
-        }
-        
-        inputFoto.addEventListener('change', function() {
-            // Clear previous previews
-            previewContainer.innerHTML = '';
-            
-            if (this.files && this.files.length > 0) {
-                // Create a header for preview section
-                const previewHeader = document.createElement('div');
-                previewHeader.className = 'col-12 mb-3';
-                previewHeader.innerHTML = `
-                    <h6 class="fw-bold mb-3">
+            // Create a header for preview section
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'mb-2';
+            previewHeader.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold mb-0">
                         <i class="bi bi-images me-2"></i>
                         Preview Foto (${this.files.length} foto dipilih)
                     </h6>
-                `;
-                previewContainer.appendChild(previewHeader);
-                
-                // Create a row for thumbnails
-                const thumbnailRow = document.createElement('div');
-                thumbnailRow.className = 'row g-2';
-                previewContainer.appendChild(thumbnailRow);
-                
-                Array.from(this.files).forEach((file, index) => {
-                    if (index < 8) { // Limit preview to 8 images
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            const col = document.createElement('div');
-                            col.className = 'col-md-3 col-6';
-                            
-                            const previewCard = document.createElement('div');
-                            previewCard.className = 'card h-100 border-0 shadow-sm';
-                            
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.className = 'card-img-top';
-                            img.style.height = '120px';
-                            img.style.objectFit = 'cover';
-                            
-                            const cardBody = document.createElement('div');
-                            cardBody.className = 'card-body p-2 bg-light';
-                            cardBody.innerHTML = `
-                                <p class="card-text small text-muted mb-0 text-truncate">
-                                    ${file.name}
-                                </p>
-                                <small class="text-primary">${(file.size / (1024*1024)).toFixed(2)} MB</small>
-                            `;
-                            
-                            previewCard.appendChild(img);
-                            previewCard.appendChild(cardBody);
-                            col.appendChild(previewCard);
-                            thumbnailRow.appendChild(col);
-                        }
-                        
-                        reader.readAsDataURL(file);
-                    }
-                });
-                
-                if (this.files.length > 8) {
-                    const moreCol = document.createElement('div');
-                    moreCol.className = 'col-12 mt-2';
-                    moreCol.innerHTML = `
-                        <div class="alert alert-info py-2 mb-0">
-                            <small><i class="bi bi-info-circle-fill me-1"></i> +${this.files.length - 8} foto lainnya tidak ditampilkan pada preview</small>
-                        </div>
-                    `;
-                    thumbnailRow.appendChild(moreCol);
-                }
-            }
-        });
-
-        // Handle detail tambahan
-        const addDetailBtn = document.querySelector('.add-detail');
-        const detailContainer = document.getElementById('detail-container');
-        
-        addDetailBtn.addEventListener('click', function() {
-            const newRow = document.createElement('div');
-            newRow.className = 'row mb-2 detail-row';
-            newRow.innerHTML = `
-                <div class="col-md-5">
-                    <input type="text" name="detail_label[]" class="form-control" placeholder="Label (contoh: Ukuran Kamar)">
-                </div>
-                <div class="col-md-5">
-                    <input type="text" name="detail_deskripsi[]" class="form-control" placeholder="Deskripsi (contoh: 3x4 meter)">
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger btn-sm remove-detail w-100">
-                        <i class="bi bi-trash"></i> Hapus
+                    <button type="button" class="btn btn-sm btn-outline-danger clear-preview">
+                        <i class="bi bi-x-circle me-1"></i>Hapus Semua
                     </button>
                 </div>
             `;
-            detailContainer.appendChild(newRow);
+            previewSection.appendChild(previewHeader);
             
-            // Add event listener to the new remove button
-            newRow.querySelector('.remove-detail').addEventListener('click', function() {
-                detailContainer.removeChild(newRow);
+            // Create a scrollable container for thumbnails
+            const scrollContainer = document.createElement('div');
+            scrollContainer.className = 'preview-scroll-container';
+            scrollContainer.style.maxHeight = '300px';
+            scrollContainer.style.overflowY = 'auto';
+            scrollContainer.style.padding = '10px';
+            scrollContainer.style.border = '1px solid #dee2e6';
+            scrollContainer.style.borderRadius = '0.375rem';
+            
+            // Create a row for thumbnails
+            const thumbnailRow = document.createElement('div');
+            thumbnailRow.className = 'row g-3';
+            scrollContainer.appendChild(thumbnailRow);
+            previewSection.appendChild(scrollContainer);
+            
+            // Append the whole preview section to the preview container
+            previewContainer.appendChild(previewSection);
+            
+            // Add event listener to clear button
+            previewSection.querySelector('.clear-preview').addEventListener('click', function() {
+                inputFoto.value = '';
+                previewContainer.innerHTML = '';
             });
+            
+            // Process each file and create preview
+            Array.from(this.files).forEach((file, index) => {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3 col-6';
+                    
+                    const previewCard = document.createElement('div');
+                    previewCard.className = 'card h-100 border-0 shadow-sm';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'card-img-top';
+                    img.style.height = '120px';
+                    img.style.objectFit = 'cover';
+                    
+                    const cardBody = document.createElement('div');
+                    cardBody.className = 'card-body p-2 bg-light';
+                    
+                    const fileNameContainer = document.createElement('div');
+                    fileNameContainer.className = 'text-truncate mb-1';
+                    fileNameContainer.title = file.name;
+                    fileNameContainer.innerText = file.name;
+                    
+                    const fileSize = document.createElement('small');
+                    fileSize.className = 'text-primary';
+                    fileSize.innerText = `${(file.size / (1024*1024)).toFixed(2)} MB`;
+                    
+                    cardBody.appendChild(fileNameContainer);
+                    cardBody.appendChild(fileSize);
+                    
+                    previewCard.appendChild(img);
+                    previewCard.appendChild(cardBody);
+                    col.appendChild(previewCard);
+                    thumbnailRow.appendChild(col);
+                }
+                
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+
+    // Handle detail tambahan
+    const addDetailBtn = document.querySelector('.add-detail');
+    const detailContainer = document.getElementById('detail-container');
+    
+    addDetailBtn.addEventListener('click', function() {
+        const newRow = document.createElement('div');
+        newRow.className = 'row mb-2 detail-row';
+        newRow.innerHTML = `
+            <div class="col-md-5">
+                <input type="text" name="detail_label[]" class="form-control" placeholder="Label (contoh: Ukuran Kamar)">
+            </div>
+            <div class="col-md-5">
+                <input type="text" name="detail_deskripsi[]" class="form-control" placeholder="Deskripsi (contoh: 3x4 meter)">
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm remove-detail w-100">
+                    <i class="bi bi-trash"></i> Hapus
+                </button>
+            </div>
+        `;
+        detailContainer.appendChild(newRow);
+        
+        // Add event listener to the new remove button
+        newRow.querySelector('.remove-detail').addEventListener('click', function() {
+            detailContainer.removeChild(newRow);
         });
     });
+});
 </script>
+<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>s

@@ -38,7 +38,7 @@ class PembayaranController extends BaseController
 
     $model->save($data);
 
-    return redirect()->to('/rekomendasi');
+    return redirect()->to('/riwayat-pembayaran');
   }
 
   public function pelanggan()

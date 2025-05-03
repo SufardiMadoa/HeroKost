@@ -38,7 +38,7 @@ class KostOwnerController extends Controller
     $db      = \Config\Database::connect();
     $builder = $db->table('users');
     $builder->select('users.id_user as id_pemilik_kost, users.nama_user as username, users.email_user as email, kost.id_kost, kost.nama_kost');
-    $builder->join('kost', 'kost.id_user = users.id_user', 'left');
+    $builder->join('kost', 'kost.id_user = users.id_user', 'inner');  // Ganti LEFT JOIN menjadi INNER JOIN
     $builder->where('users.role', 'pemilik');  // Filter hanya pemilik kost
     $query                = $builder->get();
     $data['pemilik_kost'] = $query->getResultArray();
@@ -92,7 +92,7 @@ class KostOwnerController extends Controller
       'detailTambahan' => $detailTambahan
     ];
 
-    return view('pages/owner/detail', $data);
+    return view('/partials/navbar') . view('pages/owner/detail', $data) . view('partials/footer');
   }
 
   public function editKostOwner($id)
@@ -140,7 +140,7 @@ class KostOwnerController extends Controller
       'gambar'            => $gambar
     ];
 
-    return view('pages/owner/edit', $data);
+    return view('/partials/navbar') . view('pages/owner/edit', $data) . view('partials/footer');
   }
 
   // Proses update data
@@ -286,7 +286,7 @@ class KostOwnerController extends Controller
       if (file_exists($path)) {
         unlink($path);
       }
-      $this->gambarKostModel->delete($g['id']);
+      $this->gambarKostModel->delete($g['id_gambar']);
     }
 
     // Hapus fasilitas kost terkait
@@ -418,7 +418,7 @@ class KostOwnerController extends Controller
       }
     }
 
-    return view('pages/owner/index', $data);
+    return view('/partials/navbar') . view('pages/owner/index', $data) . view('partials/footer');
   }
 
   /**

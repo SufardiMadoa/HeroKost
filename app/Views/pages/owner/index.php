@@ -1,7 +1,5 @@
-<?= $this->extend('layout/main'); ?>
 
-<?= $this->section('content'); ?>
-<div class="container py-5">
+<div class="container " style="padding-top: 80px;">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="fw-bold text-dark">
             <i class="bi bi-house-heart"></i> Daftar Kost Saya
@@ -46,7 +44,6 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="kost-container">
         <?php if (empty($kosts)): ?>
             <div class="col-12 text-center py-5">
-                <img src="<?= base_url('assets/img/empty.svg'); ?>" alt="Tidak ada data" class="img-fluid mb-3" style="max-height: 200px;">
                 <h4 class="text-muted">Belum ada data kost</h4>
                 <p>Silahkan tambahkan data kost baru</p>
             </div>
@@ -124,7 +121,7 @@
                                         <?php if ($count < 4): ?>
                                             <span class="badge bg-light text-dark"><?= $fas['nama_fasilitas']; ?></span>
                                         <?php $count++;
-      endif; ?>
+            endif; ?>
                                     <?php endforeach; ?>
                                     
                                     <?php if (count($kost['fasilitas']) > 4): ?>
@@ -340,4 +337,3 @@ body {
     background: #555;
 }
 </style>
-<?= $this->endSection(); ?>

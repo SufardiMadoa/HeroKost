@@ -40,7 +40,7 @@ class AdminController extends BaseController
             'title'     => 'Kelola Daftar Kost',
             'kosts'     => $kostsWithGambar,
             'totalKost' => $kostModel->countAll(),
-            'totalUser' => $userModel->countAll(),
+            'totalUser' => $userModel->where('role', 'pengguna')->countAllResults(),
         ];
         return view('pages/admin/dashboard', $data);
     }
@@ -58,7 +58,9 @@ class AdminController extends BaseController
         $data['kosts'] = $kostModel->findAll();
         return view('admin/manage_kosts', $data);
     }
-    public function pemilikKosts(){
+
+    public function pemilikKosts()
+    {
         return view('pages/admin/pemilikKost/index');
     }
 }

@@ -101,7 +101,7 @@ class AuthController extends BaseController
         if ($user['role'] === 'admin') {
             return redirect()->to('/admin');
         } elseif ($user['role'] === 'pemilik') {
-            return redirect()->to('/pemilik');
+            return redirect()->to('/pemilik/kost');
         } else {
             return redirect()->to('/');
         }
